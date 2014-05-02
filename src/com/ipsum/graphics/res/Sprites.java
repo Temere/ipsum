@@ -19,6 +19,9 @@ public class Sprites
 	public static class particle
 	{
 		public static Sprite normal = new Sprite(3, 0xaaaaaa);
+		public static Sprite blood = new Sprite(3, 0xaa0000);
+		public static Sprite green = new Sprite(3, 0xff00);
+		public static Sprite blergh = new Sprite(3, 0xacd035);
 	}
 
 	public static class projectile

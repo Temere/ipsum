@@ -2,8 +2,6 @@ package com.ipsum.graphics;
 
 import com.ipsum.entity.mob.Mob;
 
-import java.awt.*;
-
 public class Screen
 {
 	public static final int TILE_SIZE = 16;
@@ -15,7 +13,7 @@ public class Screen
 
 	public int xOffset, yOffset;
 
-	private int clearColor = 	new Color(120, 180, 230).getRGB();
+	private int clearColor = 	0;
 
 	public Screen(int width, int height)
 	{

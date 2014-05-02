@@ -4,9 +4,6 @@ import com.ipsum.entity.Entity;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.Sprite;
 
-import java.util.Random;
-
-
 public abstract class Projectile extends Entity
 {
 

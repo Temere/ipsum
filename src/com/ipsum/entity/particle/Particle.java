@@ -18,7 +18,12 @@ public class Particle extends Entity
 
 	public Particle(int x, int y, int life)
 	{
-		sprite = Sprites.particle.normal;
+		this(x, y, life, Sprites.particle.normal);
+	}
+
+	public Particle(int x, int y, int life, Sprite sprite)
+	{
+		this.sprite = sprite;
 
 		this.x = x;
 		this.y = y;
