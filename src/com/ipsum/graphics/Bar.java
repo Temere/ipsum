@@ -5,6 +5,10 @@ public class Bar
 	protected int foreground, background;
 	protected int max, current;
 	protected int x, y, width, height;
+
+	protected int borderColor = 0;
+	protected boolean border = true;
+
 	public int[] pixels;
 
 	public Bar(int x, int y, int width, int height)
@@ -31,7 +35,10 @@ public class Bar
 		{
 			for(int x = 0; x < width; x++)
 			{
-				pixels[x + y * width] = (x < w) ? foreground : background;
+				if(border && (y == 0 || x == 0 || x == width -1 || y == height - 1))
+					pixels[x + y  * width] = borderColor;
+				else
+					pixels[x + y * width] = (x < w) ? foreground : background;
 			}
 		}
 
@@ -114,4 +121,17 @@ public class Bar
 	{
 		return height;
 	}
+
+	public Bar setBorderColor(int borderColor)
+	{
+		this.borderColor = borderColor;
+		return this;
+	}
+
+	public Bar showBorder(boolean border)
+	{
+		this.border = border;
+		return this;
+	}
+
 }
