@@ -1,6 +1,7 @@
 package com.ipsum.level;
 
 import com.ipsum.entity.Entity;
+import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.mob.player.Player;
 import com.ipsum.entity.particle.Particle;
 import com.ipsum.entity.projectile.Projectile;
@@ -96,6 +97,8 @@ public abstract class Level
 				continue;
 			}
 			projectiles.get(i).update();
+			projectileMobCollision(projectiles.get(i));
+
 		}
 		for (int i = 0; i < particles.size(); i++)
 		{
@@ -179,8 +182,55 @@ public abstract class Level
 		return solid;
 	}
 
+	public Mob projectileMobCollision(Projectile projectile)
+	{
+		for (int i = 0; i < entities.size(); i++)
+		{
+			if(entities.get(i) instanceof Mob)
+			{
+				Mob mob = (Mob) entities.get(i);
+				int ps = projectile.getSize();
+				double px = projectile.getX();
+				double py = projectile.getY();
+
+//				System.out.println("px " + px + ", py " + py);
+
+				double mx = mob.getX();
+				double my = mob.getY();
+				int mw = mob.getWidth();
+				int mh = mob.getHeight();
+
+				boolean collided = false;
+
+				for (int c = 0; c < 4; c++)
+				{
+					int xt =(int) (px  + (c % 2) * ps);
+					int yt =(int) (py  + (c / 2) * ps);
+
+//					System.out.println("xt " + xt + ", yt " + yt + ", mx " + mx + ", my " + my + ", mw " + mw + ", mh " + mh );
+
+					if((xt > mx && xt < mx + mw) && (yt > my && yt < my + mh))
+					{
+						collided = true;
+						break;
+					}
+
+				}
+//				System.exit(0);
+
+				if(collided)
+				{
+					return mob;
+				}
+			}
+		}
+
+		return null;
+	}
+
 	public String getDebug()
 	{
 		return entities.size() + " e, " + projectiles.size() + " proj, " + particles.size() + " part, " + (entities.size() + particles.size() + projectiles.size() + " tot");
 	}
+
 }

@@ -10,6 +10,8 @@ public abstract class AI
 
 	protected int xa =0, ya = 0;
 
+	protected int timer = 0;
+
 	public abstract void update(Mob mob);
 
 }

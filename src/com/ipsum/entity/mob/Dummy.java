@@ -14,11 +14,14 @@ public class Dummy extends Mob
 		healthBar.setOffset(-20, -20).setFollow(true).setXY(x, y);
 		//addAI(new RoamerAI(120, 2).setDiff(20).setStopRate(4));
 		addAI(new ChaserAI(null));
+
+		maxHealth = 50;
+		health = maxHealth;
 	}
 
 	@Override
 	public void init(Level level) {
 		super.init(level);
-		//((ChaserAI)ai).setTarget(level.getClientPlayer());
+		((ChaserAI)ai).setTarget(level.getClientPlayer());
 	}
 }

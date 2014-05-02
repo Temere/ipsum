@@ -7,7 +7,7 @@ import java.util.Random;
 
 public abstract class Entity
 {
-	protected int x, y;
+	protected double x, y;
 	protected boolean removed = false;
 	protected Level level;
 	protected final Random random = new Random();
@@ -32,12 +32,12 @@ public abstract class Entity
 		this.level = level;
 	}
 
-	public int getX()
+	public double getX()
 	{
 		return x;
 	}
 
-	public int getY()
+	public double getY()
 	{
 		return y;
 	}

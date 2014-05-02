@@ -1,6 +1,7 @@
 package com.ipsum.entity.mob.player;
 
 import com.ipsum.Game;
+import com.ipsum.entity.mob.Dummy;
 import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.projectile.TestProjectile;
 import com.ipsum.graphics.res.SpriteSheets;
@@ -11,6 +12,7 @@ import com.ipsum.util.TileCoordinate;
 public class Player extends Mob
 {
 	private int fireRate = 0;
+	private int timer = 0;
 
 	public Player(TileCoordinate coordinate)
 	{
@@ -59,6 +61,7 @@ public class Player extends Mob
 		int mx = Mouse.getX();
 		int my = Mouse.getY();
 		fireRate--;
+		timer--;
 
 		if(Mouse.getButton() == 1 && fireRate <= 0)
 		{
@@ -66,9 +69,14 @@ public class Player extends Mob
 			double dx = mx - Game.getWindowWidth() / 2;
 			double dy = my - Game.getWindowHeight() / 2;
 			double angle = Math.atan2(dy, dx);
-			shoot(x, y, angle);
+			shoot((int)x,(int) y, angle);
 
 			fireRate = TestProjectile.FIRERATE;
+		}
+		if(Mouse.getButton() == 3 && timer == 0)
+		{
+			level.add(new Dummy((int)x + mx,(int) y + my));
+			timer = 60;
 		}
 
 	}

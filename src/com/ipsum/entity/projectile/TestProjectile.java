@@ -1,13 +1,13 @@
 package com.ipsum.entity.projectile;
 
 
+import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.spawner.ParticleSpawner;
 import com.ipsum.graphics.res.Sprites;
 
 public class TestProjectile extends Projectile
 {
 	public static final int FIRERATE = 10;
-	public static final int SIZE = 7;
 
 	public TestProjectile(int xOrigin, int yOrigin, double angle)
 	{
@@ -19,6 +19,7 @@ public class TestProjectile extends Projectile
 		rateOfFire = 10;
 
 		sprite = Sprites.projectile.test.wizard;
+		size = sprite.getWidth();
 
 		nx = speed * Math.cos(angle);
 		ny = speed * Math.sin(angle);
@@ -31,9 +32,22 @@ public class TestProjectile extends Projectile
 		move();
 		distance = distanceTraveled();
 		if(distance > range) remove();
-		if(level.tileCollision((int)(x + nx),(int)(y + ny), SIZE, 4, 4))
+		if(level.tileCollision((int)(x + nx),(int)(y + ny), size, 4, 4))
 		{
-			level.add(new ParticleSpawner((int)(x + SIZE / 2), (int) (y + SIZE / 2), 55, 20, level, Sprites.particle.blergh));
+			level.add(new ParticleSpawner((int)(x + size / 2), (int) (y + size / 2), 55, 20, level, Sprites.particle.blergh));
+			remove();
+		}
+
+		Mob m = level.projectileMobCollision(this);
+		if(m != null)
+		{
+			if(!didDamage)
+			{
+				m.damage((int) damage);
+				didDamage = true;
+			}
+
+			level.add(new ParticleSpawner((int)(x + size / 2), (int) (y + size / 2), 55, 20, level, Sprites.particle.blood));
 			remove();
 		}
 	}
@@ -43,7 +57,6 @@ public class TestProjectile extends Projectile
 	{
 		x += nx;
 		y += ny;
-
 	}
 
 }

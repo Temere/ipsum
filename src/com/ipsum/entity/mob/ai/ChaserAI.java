@@ -6,6 +6,7 @@ public class ChaserAI extends AI
 {
 
 	private Mob target;
+	private int moveInterval = 3;
 
 	public ChaserAI(Mob target)
 	{
@@ -17,9 +18,15 @@ public class ChaserAI extends AI
 		this.target = target;
 	}
 
+	public void setMoveInterval(int moveInterval)
+	{
+		this.moveInterval = moveInterval;
+	}
+
 	@Override
 	public void update(Mob mob)
 	{
+		timer++;
 		if(target != null)
 		{
 			xa = 0;
@@ -30,7 +37,7 @@ public class ChaserAI extends AI
 			if(mob.getY() < target.getY()) ya = 1;
 			if(mob.getY() > target.getY()) ya = -1;
 
-			mob.move(xa, ya);
+			if(timer % moveInterval == 0) mob.move(xa, ya);
 
 		}
 	}

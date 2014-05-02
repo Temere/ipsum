@@ -51,8 +51,8 @@ public class HealthBar extends Bar
 	{
 		if(follow)
 		{
-			x = mob.getX() + xOffset;
-			y = mob.getY() + yOffset;
+			x =(int) mob.getX() + xOffset;
+			y =(int) mob.getY() + yOffset;
 		}
 
 		max = mob.getMaxHealth();

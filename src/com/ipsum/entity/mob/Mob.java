@@ -18,6 +18,8 @@ public abstract class Mob extends Entity
 	protected Direction dir;
 	protected boolean moving = false;
 	protected int xa = 0, ya = 0;
+	private int width;
+	private int height;
 
 	protected Sprite sprite;
 	protected AnimatedSprite[] animatedSprites;
@@ -36,6 +38,8 @@ public abstract class Mob extends Entity
 		this.x = x;
 		this.y = y;
 		initAnimation(animSheet);
+		width = animSheet.spriteSize;
+		height = animSheet.spriteSize;
 
 		dir = Direction.DOWN;
 
@@ -118,7 +122,7 @@ public abstract class Mob extends Entity
 	@Override
 	public void render(Screen screen)
 	{
-		renderMob(x - (animatedSprites[0].getSprite().getWidth() / 2), y - (animatedSprites[0].getSprite().getHeight() / 2), screen);
+		renderMob((int)x - (animatedSprites[0].getSprite().getWidth() / 2),(int) y - (animatedSprites[0].getSprite().getHeight() / 2), screen);
 	}
 
 	public Sprite getSprite()
@@ -134,7 +138,7 @@ public abstract class Mob extends Entity
 
 	public void shoot(int x, int y, double direction)
 	{
-		int size = TestProjectile.SIZE;
+		int size = 8;
 		Projectile p = new TestProjectile(x - size, y - size, direction);
 		level.add(p);
 	}
@@ -165,8 +169,8 @@ public abstract class Mob extends Entity
 
 		for (int c = 0; c < 4; c++)
 		{
-			int xt = ((x + xa) + c % 2 * 12 - 7 ) / 16;
-			int yt = ((y + ya) + c / 2 * 12 + 3 ) / 16;
+			int xt =(int) ((x + xa) + c % 2 * 12 - 7 ) / 16;
+			int yt =(int) ((y + ya) + c / 2 * 12 + 3 ) / 16;
 			if(level.getTile(xt, yt).solid()) solid = true;
 		}
 
@@ -201,5 +205,14 @@ public abstract class Mob extends Entity
 	public boolean isMoving()
 	{
 		return moving;
+	}
+
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 }
