@@ -31,4 +31,14 @@ public class Screen
 			pixels[i] = color;
 	}
 
+	public void setClearColor(int clearColor)
+	{
+		this.clearColor = clearColor;
+	}
+
+	public void setOffset(int xOffset, int yOffset)
+	{
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
+	}
 }

@@ -26,16 +26,12 @@ public class Game extends Canvas implements Runnable
 
 	private boolean running = true;
 
-
-
 	public Game()
 	{
 		setPreferredSize(new Dimension(width * scale, height * scale));
 
 		initFrame();
 		screen = new Screen(width, height);
-
-
 
 	}
 
@@ -53,7 +49,8 @@ public class Game extends Canvas implements Runnable
 
 	@Override
 	public void run()
-	{long lastTime = System.nanoTime();
+	{
+		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		final double ns = 1000000000.0 / 60.0;
 		double delta = 0;
@@ -109,6 +106,7 @@ public class Game extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 	}
+
 	public void render()
 	{
 		BufferStrategy bs = getBufferStrategy();
@@ -130,7 +128,6 @@ public class Game extends Canvas implements Runnable
 
 		g.dispose();
 		bs.show();
-
 	}
 
 	public void update()
@@ -144,5 +141,15 @@ public class Game extends Canvas implements Runnable
 		game.start();
 	}
 
+
+	public int getWindowHeight()
+	{
+		return height * scale;
+	}
+
+	public int getWindowWidth()
+	{
+		return width * scale;
+	}
 
 }
