@@ -2,6 +2,7 @@ package com.ipsum;
 
 import com.ipsum.entity.mob.player.Player;
 import com.ipsum.graphics.Screen;
+import com.ipsum.graphics.gui.Gui;
 import com.ipsum.graphics.res.Sprites;
 import com.ipsum.input.Keyboard;
 import com.ipsum.input.Mouse;
@@ -39,6 +40,8 @@ public class Game extends Canvas implements Runnable
 	private Keyboard keyboard;
 	private Mouse mouse;
 
+	private Gui gui;
+
 
 	Player player;
 
@@ -56,6 +59,8 @@ public class Game extends Canvas implements Runnable
 
 		level = new FileLevel(new TestLevelData());
 		level.add(player);
+
+		gui = new Gui();
 
 		addKeyListener(keyboard);
 		addMouseListener(mouse);
@@ -153,6 +158,10 @@ public class Game extends Canvas implements Runnable
 
 		level.render(xScroll, yScroll, screen);
 
+		//render gui last
+
+		gui.render(screen);
+
 		// not after here
 
 		for(int i = 0; i< pixels.length; i++)
@@ -172,6 +181,8 @@ public class Game extends Canvas implements Runnable
 		keyboard.update();
 
 		level.update();
+
+		gui.update();
 	}
 
 	public static void main(String[] args)
