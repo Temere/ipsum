@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable
 		initFrame();
 		screen = new Screen(width, height);
 
-		player = new Player(new TileCoordinate(10, 10), keyboard);
+		player = new Player(new TileCoordinate(10, 10));
 
 		level = new FileLevel(new TestLevelData());
 		level.add(player);

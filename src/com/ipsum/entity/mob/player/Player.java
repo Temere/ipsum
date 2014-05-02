@@ -10,22 +10,18 @@ import com.ipsum.util.TileCoordinate;
 
 public class Player extends Mob
 {
-	private Keyboard input;
-
 	private int fireRate = 0;
 
-	public Player(TileCoordinate coordinate, Keyboard input)
+	public Player(TileCoordinate coordinate)
 	{
-		this(coordinate.getX(), coordinate.getY(), input);
+		this(coordinate.getX(), coordinate.getY());
 	}
 
-	public Player(int x, int y, Keyboard input)
+	public Player(int x, int y)
 	{
 		super(x, y, SpriteSheets.player);
 
 		fireRate = TestProjectile.FIRERATE;
-		this.input = input;
-
 	}
 
 	@Override
@@ -34,20 +30,20 @@ public class Player extends Mob
 		updateAnim();
 		int xa = 0, ya = 0;
 
-		if(input.up)
+		if(Keyboard.up)
 		{
 			ya--;
 		}
-		else if(input.down)
+		else if(Keyboard.down)
 		{
 			ya++;
 		}
 
-		if(input.left)
+		if(Keyboard.left)
 		{
 			xa--;
 		}
-		else if(input.right)
+		else if(Keyboard.right)
 		{
 			xa++;
 		}
