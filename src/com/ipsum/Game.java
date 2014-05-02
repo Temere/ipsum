@@ -5,7 +5,10 @@ import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.res.Sprites;
 import com.ipsum.input.Keyboard;
 import com.ipsum.input.Mouse;
+import com.ipsum.level.FileLevel;
 import com.ipsum.level.Level;
+import com.ipsum.level.TestLevelData;
+import com.ipsum.util.TileCoordinate;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,7 +52,10 @@ public class Game extends Canvas implements Runnable
 		initFrame();
 		screen = new Screen(width, height);
 
-		player = new Player(100, 30, keyboard);
+		player = new Player(new TileCoordinate(10, 10), keyboard);
+
+		level = new FileLevel(new TestLevelData());
+		level.add(player);
 
 		addKeyListener(keyboard);
 		addMouseListener(mouse);
@@ -141,9 +147,11 @@ public class Game extends Canvas implements Runnable
 
 		// all rendering here
 
-		screen.renderSprite(10, 10, Sprites.test.red, true);
 
-		player.render(screen);
+		int xScroll = player.getX() - screen.width / 2;
+		int yScroll = player.getY() - screen.height / 2;
+
+		level.render(xScroll, yScroll, screen);
 
 		// not after here
 
@@ -161,7 +169,9 @@ public class Game extends Canvas implements Runnable
 
 	public void update()
 	{
-		player.update();
+		keyboard.update();
+
+		level.update();
 	}
 
 	public static void main(String[] args)
