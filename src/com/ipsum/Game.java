@@ -2,6 +2,7 @@ package com.ipsum;
 
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.res.Sprites;
+import com.ipsum.level.Level;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +13,9 @@ import java.awt.image.DataBufferInt;
 public class Game extends Canvas implements Runnable
 {
 
-	private int scale = 3;
-	private int width = 900 / scale;
-	private int height = width / 16 * 9;
+	private static int scale = 3;
+	private static int width = 900 / scale;
+	private static int height = width / 16 * 9;
 
 	public static String title = "Ipsum";
 
@@ -22,6 +23,8 @@ public class Game extends Canvas implements Runnable
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+
+	private Level level;
 
 	private Thread thread;
 
@@ -33,6 +36,8 @@ public class Game extends Canvas implements Runnable
 
 		initFrame();
 		screen = new Screen(width, height);
+
+
 
 	}
 
@@ -149,12 +154,12 @@ public class Game extends Canvas implements Runnable
 	}
 
 
-	public int getWindowHeight()
+	public static int getWindowHeight()
 	{
 		return height * scale;
 	}
 
-	public int getWindowWidth()
+	public static int getWindowWidth()
 	{
 		return width * scale;
 	}
