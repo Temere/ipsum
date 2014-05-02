@@ -4,6 +4,7 @@ import com.ipsum.entity.mob.player.Player;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.res.Sprites;
 import com.ipsum.input.Keyboard;
+import com.ipsum.input.Mouse;
 import com.ipsum.level.Level;
 
 import javax.swing.*;
@@ -33,6 +34,7 @@ public class Game extends Canvas implements Runnable
 	private boolean running = true;
 
 	private Keyboard keyboard;
+	private Mouse mouse;
 
 
 	Player player;
@@ -42,6 +44,7 @@ public class Game extends Canvas implements Runnable
 		setPreferredSize(new Dimension(width * scale, height * scale));
 
 		keyboard = new Keyboard();
+		mouse = new Mouse();
 
 		initFrame();
 		screen = new Screen(width, height);
@@ -49,8 +52,8 @@ public class Game extends Canvas implements Runnable
 		player = new Player(100, 30, keyboard);
 
 		addKeyListener(keyboard);
-
-
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 
 	private void initFrame()
