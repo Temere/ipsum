@@ -76,7 +76,6 @@ public class Sprite
 		{
 			for (int xx = 0; xx < width; xx++)
 			{
-
 				pixels[xx + yy * width] = sheet.pixels[(xx + x) + (y + yy) * sheet.WIDTH];
 			}
 		}

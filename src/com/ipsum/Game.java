@@ -1,6 +1,7 @@
 package com.ipsum;
 
 import com.ipsum.graphics.Screen;
+import com.ipsum.graphics.res.Sprites;
 
 import javax.swing.*;
 import java.awt.*;
@@ -117,6 +118,12 @@ public class Game extends Canvas implements Runnable
 		}
 
 		screen.clear();
+
+		// all rendering here
+
+		screen.renderSprite(10, 10, Sprites.test.red, true);
+
+		// not after here
 
 		for(int i = 0; i< pixels.length; i++)
 			pixels[i] = screen.pixels[i];
