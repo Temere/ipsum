@@ -2,6 +2,8 @@ package com.ipsum.entity.mob;
 
 
 import com.ipsum.entity.Entity;
+import com.ipsum.entity.projectile.Projectile;
+import com.ipsum.entity.projectile.TestProjectile;
 import com.ipsum.graphics.AnimatedSprite;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.Sprite;
@@ -124,9 +126,9 @@ public abstract class Mob extends Entity
 
 	public void shoot(int x, int y, double direction)
 	{
-//		int size = WizardProjectile.SIZE;
-//		Projectile p = new WizardProjectile(x - size, y - size, direction);
-//		level.add(p);
+		int size = TestProjectile.SIZE;
+		Projectile p = new TestProjectile(x - size, y - size, direction);
+		level.add(p);
 	}
 
 	private boolean collision(int xa, int ya)

@@ -2,8 +2,8 @@ package com.ipsum.entity.mob.player;
 
 import com.ipsum.Game;
 import com.ipsum.entity.mob.Mob;
+import com.ipsum.entity.projectile.TestProjectile;
 import com.ipsum.graphics.Screen;
-import com.ipsum.graphics.SpriteSheet;
 import com.ipsum.graphics.res.SpriteSheets;
 import com.ipsum.input.Keyboard;
 import com.ipsum.input.Mouse;
@@ -26,7 +26,7 @@ public class Player extends Mob
 	{
 		super(x, y, SpriteSheets.player);
 
-		//fireRate = WizardProjectile.FIRERATE;
+		fireRate = TestProjectile.FIRERATE;
 		this.input = input;
 
 	}
@@ -77,7 +77,7 @@ public class Player extends Mob
 			double angle = Math.atan2(dy, dx);
 			shoot(x, y, angle);
 
-//			fireRate = WizardProjectile.FIRERATE;
+			fireRate = TestProjectile.FIRERATE;
 		}
 
 	}

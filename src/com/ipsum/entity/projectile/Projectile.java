@@ -1,6 +1,7 @@
 package com.ipsum.entity.projectile;
 
 import com.ipsum.entity.Entity;
+import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.Sprite;
 
 import java.util.Random;
@@ -18,8 +19,6 @@ public abstract class Projectile extends Entity
 	protected double x, y;
 
 	protected double speed, rateOfFire, range, damage;
-
-	protected final Random random = new Random();
 
 	protected Projectile(int xOrigin, int yOrigin, double angle)
 	{
@@ -40,4 +39,9 @@ public abstract class Projectile extends Entity
 
 	}
 
+	@Override
+	public void render(Screen screen)
+	{
+		screen.renderSprite((int)x, (int)y, sprite, true);
+	}
 }

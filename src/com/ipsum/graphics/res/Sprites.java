@@ -21,4 +21,12 @@ public class Sprites
 		public static Sprite normal = new Sprite(3, 0xaaaaaa);
 	}
 
+	public static class projectile
+	{
+		public static class test
+		{
+			public static Sprite wizard = new Sprite(8, 0x00fa77);
+		}
+	}
+
 }
