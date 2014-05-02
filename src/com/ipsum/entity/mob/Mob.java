@@ -178,7 +178,28 @@ public abstract class Mob extends Entity
 		this.ai = ai;
 	}
 
+	public Direction getDir()
+	{
+		return dir;
+	}
 
+	public HealthBar getHealthBar()
+	{
+		return healthBar;
+	}
 
+	public AI getAi()
+	{
+		return ai;
+	}
 
+	public boolean isShowHealthBar()
+	{
+		return showHealthBar;
+	}
+
+	public boolean isMoving()
+	{
+		return moving;
+	}
 }

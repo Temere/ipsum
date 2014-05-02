@@ -19,6 +19,6 @@ public class Dummy extends Mob
 	@Override
 	public void init(Level level) {
 		super.init(level);
-		((ChaserAI)ai).setTarget(level.getClientPlayer());
+		//((ChaserAI)ai).setTarget(level.getClientPlayer());
 	}
 }
