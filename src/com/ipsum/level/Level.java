@@ -20,7 +20,7 @@ public abstract class Level
 	protected List<Particle> particles = new ArrayList<Particle>();
 	protected List<Player> players = new ArrayList<Player>();
 
-	//public static Level spawn = new SpawnLevel("/levels/spawn.png");
+	//public static Level spawn = new FileLevel("/levels/spawn.png");
 
 	public Level(int width, int height)
 	{

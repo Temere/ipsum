@@ -1,7 +1,9 @@
 package com.ipsum;
 
+import com.ipsum.entity.mob.player.Player;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.res.Sprites;
+import com.ipsum.input.Keyboard;
 import com.ipsum.level.Level;
 
 import javax.swing.*;
@@ -30,13 +32,23 @@ public class Game extends Canvas implements Runnable
 
 	private boolean running = true;
 
+	private Keyboard keyboard;
+
+
+	Player player;
+
 	public Game()
 	{
 		setPreferredSize(new Dimension(width * scale, height * scale));
 
+		keyboard = new Keyboard();
+
 		initFrame();
 		screen = new Screen(width, height);
 
+		player = new Player(100, 30, keyboard);
+
+		addKeyListener(keyboard);
 
 
 	}
@@ -128,6 +140,8 @@ public class Game extends Canvas implements Runnable
 
 		screen.renderSprite(10, 10, Sprites.test.red, true);
 
+		player.render(screen);
+
 		// not after here
 
 		for(int i = 0; i< pixels.length; i++)
@@ -144,7 +158,7 @@ public class Game extends Canvas implements Runnable
 
 	public void update()
 	{
-
+		player.update();
 	}
 
 	public static void main(String[] args)
