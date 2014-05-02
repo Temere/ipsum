@@ -4,10 +4,7 @@ package com.ipsum.entity.mob;
 import com.ipsum.entity.Entity;
 import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.entity.projectile.TestProjectile;
-import com.ipsum.graphics.AnimatedSprite;
-import com.ipsum.graphics.Screen;
-import com.ipsum.graphics.Sprite;
-import com.ipsum.graphics.SpriteSheet;
+import com.ipsum.graphics.*;
 
 public abstract class Mob extends Entity
 {
@@ -25,6 +22,11 @@ public abstract class Mob extends Entity
 	protected AnimatedSprite[] animatedSprites;
 	protected int animSpeed = 15;
 
+	protected int maxHealth = 50;
+	protected int health = maxHealth;
+	protected HealthBar healthBar;
+	protected boolean showHealthBar = false;
+
 
 	protected Mob(int x, int y, SpriteSheet animSheet)
 	{
@@ -33,6 +35,8 @@ public abstract class Mob extends Entity
 		initAnimation(animSheet);
 
 		dir = Direction.DOWN;
+
+		healthBar = new HealthBar(x, y, 25, 3, this);
 	}
 
 	protected void initAnimation(SpriteSheet sheet)
@@ -106,12 +110,7 @@ public abstract class Mob extends Entity
 	@Override
 	public void render(Screen screen)
 	{
-		renderMob(x, y, screen);
-	}
-
-	protected void renderMob(Screen screen)
-	{
-		renderMob(x, y, screen);
+		renderMob(x - (animatedSprites[0].getSprite().getWidth() / 2), y - (animatedSprites[0].getSprite().getHeight() / 2), screen);
 	}
 
 	public Sprite getSprite()
@@ -122,6 +121,7 @@ public abstract class Mob extends Entity
 	protected void renderMob(int x, int y, Screen screen)
 	{
 		screen.renderMob(x, y, this);
+		if(showHealthBar) screen.renderBar(healthBar, true);
 	}
 
 	public void shoot(int x, int y, double direction)
@@ -129,6 +129,26 @@ public abstract class Mob extends Entity
 		int size = TestProjectile.SIZE;
 		Projectile p = new TestProjectile(x - size, y - size, direction);
 		level.add(p);
+	}
+
+	public void damage(int amount)
+	{
+		health -= amount;
+
+		if(health <= 0)
+			remove();
+		else if(health > maxHealth)
+			health = maxHealth;
+	}
+
+	public int getHealth()
+	{
+		return health;
+	}
+
+	public int getMaxHealth()
+	{
+		return maxHealth;
 	}
 
 	private boolean collision(int xa, int ya)

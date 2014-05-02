@@ -3,7 +3,6 @@ package com.ipsum.entity.mob.player;
 import com.ipsum.Game;
 import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.projectile.TestProjectile;
-import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.res.SpriteSheets;
 import com.ipsum.input.Keyboard;
 import com.ipsum.input.Mouse;
@@ -12,8 +11,6 @@ import com.ipsum.util.TileCoordinate;
 public class Player extends Mob
 {
 	private Keyboard input;
-
-	private int anim = 0;
 
 	private int fireRate = 0;
 
@@ -36,8 +33,6 @@ public class Player extends Mob
 	{
 		updateAnim();
 		int xa = 0, ya = 0;
-
-		if(anim++ > 7500) anim -= 7500;
 
 		if(input.up)
 		{
@@ -82,12 +77,13 @@ public class Player extends Mob
 
 	}
 
-	@Override
-	public void render(Screen screen)
-	{
-		int xx = x - 16;
-		int yy = y - 16;
-
-		renderMob(xx, yy, screen);
-	}
+//	@Override
+//	public void render(Screen screen)
+//	{
+//		int xx = x - 16;
+//		int yy = y - 16;
+//
+//		renderMob(xx, yy, screen);
+//
+//	}
 }

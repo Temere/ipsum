@@ -1,13 +1,11 @@
-package com.ipsum.graphics.gui.components;
+package com.ipsum.graphics;
 
 public class Bar
 {
-	private int foreground, background;
-	private int max, current;
-	private int x, y, width, height;
+	protected int foreground, background;
+	protected int max, current;
+	protected int x, y, width, height;
 	public int[] pixels;
-
-	boolean initialized = false;
 
 	public Bar(int x, int y, int width, int height)
 	{
@@ -27,7 +25,6 @@ public class Bar
 	public Bar update()
 	{
 		float perc = (current / (float) max);
-		System.out.println(perc);
 		int w = (int) (perc * width);
 
 		for(int y = 0; y < height; y++)
@@ -100,6 +97,12 @@ public class Bar
 	public void setX(int x)
 	{
 		this.x = x;
+	}
+
+	public void setXY(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getWidth()

@@ -1,9 +1,9 @@
 package com.ipsum;
 
+import com.ipsum.entity.mob.Dummy;
 import com.ipsum.entity.mob.player.Player;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.gui.Gui;
-import com.ipsum.graphics.res.Sprites;
 import com.ipsum.input.Keyboard;
 import com.ipsum.input.Mouse;
 import com.ipsum.level.FileLevel;
@@ -23,6 +23,8 @@ public class Game extends Canvas implements Runnable
 	private static int scale = 3;
 	private static int width = 900 / scale;
 	private static int height = width / 16 * 9;
+
+	public static Game game;
 
 	public static String title = "Ipsum";
 
@@ -60,11 +62,13 @@ public class Game extends Canvas implements Runnable
 		level = new FileLevel(new TestLevelData());
 		level.add(player);
 
-		gui = new Gui();
+		gui = new Gui(player);
 
 		addKeyListener(keyboard);
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+
+		level.add(new Dummy(12 * 16, 14 * 16));
 	}
 
 	private void initFrame()
@@ -185,13 +189,6 @@ public class Game extends Canvas implements Runnable
 		gui.update();
 	}
 
-	public static void main(String[] args)
-	{
-		Game game = new Game();
-		game.start();
-	}
-
-
 	public static int getWindowHeight()
 	{
 		return height * scale;
@@ -201,5 +198,13 @@ public class Game extends Canvas implements Runnable
 	{
 		return width * scale;
 	}
+
+	public static void main(String[] args)
+	{
+		game = new Game();
+		game.start();
+	}
+
+
 
 }
