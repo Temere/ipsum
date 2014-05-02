@@ -41,4 +41,9 @@ public abstract class Entity
 	{
 		return y;
 	}
+
+	public Level getLevel()
+	{
+		return level;
+	}
 }

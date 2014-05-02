@@ -1,5 +1,6 @@
 package com.ipsum.entity.mob;
 
+import com.ipsum.entity.mob.ai.RoamerAI;
 import com.ipsum.graphics.res.SpriteSheets;
 
 public class Dummy extends Mob
@@ -10,12 +11,6 @@ public class Dummy extends Mob
 		super(x, y, SpriteSheets.dummy);
 		showHealthBar = true;
 		healthBar.setOffset(-20, -20).setFollow(true).setXY(x, y);
-	}
-
-	@Override
-	public void update()
-	{
-		move(0, 1);
-		super.update();
+		addAI(new RoamerAI(120, 2).setDiff(20).setStopRate(4));
 	}
 }

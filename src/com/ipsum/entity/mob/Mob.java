@@ -2,6 +2,7 @@ package com.ipsum.entity.mob;
 
 
 import com.ipsum.entity.Entity;
+import com.ipsum.entity.mob.ai.AI;
 import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.entity.projectile.TestProjectile;
 import com.ipsum.graphics.*;
@@ -26,6 +27,8 @@ public abstract class Mob extends Entity
 	protected int health = maxHealth;
 	protected HealthBar healthBar;
 	protected boolean showHealthBar = false;
+
+	protected AI ai = null;
 
 
 	protected Mob(int x, int y, SpriteSheet animSheet)
@@ -108,6 +111,8 @@ public abstract class Mob extends Entity
 	public void update()
 	{
 		healthBar.update();
+		if(ai != null)
+			ai.update(this);
 	}
 
 	@Override
@@ -166,6 +171,11 @@ public abstract class Mob extends Entity
 		}
 
 		return solid;
+	}
+
+	protected void addAI(AI ai)
+	{
+		this.ai = ai;
 	}
 
 
