@@ -35,6 +35,8 @@ public class HealthBar extends Bar
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 
+		System.out.println(xOffset + ", " +  yOffset);
+
 		return this;
 	}
 

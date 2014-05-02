@@ -105,7 +105,10 @@ public abstract class Mob extends Entity
 	}
 
 	@Override
-	public abstract void update();
+	public void update()
+	{
+		healthBar.update();
+	}
 
 	@Override
 	public void render(Screen screen)

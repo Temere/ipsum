@@ -9,12 +9,13 @@ public class Dummy extends Mob
 	{
 		super(x, y, SpriteSheets.dummy);
 		showHealthBar = true;
-		healthBar.setOffset(48, 320).setFollow(true).setXY(x, y);
+		healthBar.setOffset(-20, -20).setFollow(true).setXY(x, y);
 	}
 
 	@Override
 	public void update()
 	{
-		healthBar.setXY(x, y);
+		move(0, 1);
+		super.update();
 	}
 }
