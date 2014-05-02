@@ -8,6 +8,8 @@ public abstract class AI
 {
 	protected final Random random = new Random();
 
+	protected int xa =0, ya = 0;
+
 	public abstract void update(Mob mob);
 
 }

@@ -9,7 +9,6 @@ public class RoamerAI extends AI
 	private int speed;
 	private int diff = 0;
 
-	private int xa = 0, ya = 0;
 	private int interval = 2;
 	private int stopRate = 5;
 
