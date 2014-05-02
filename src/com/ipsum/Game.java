@@ -113,7 +113,7 @@ public class Game extends Canvas implements Runnable
 				timer = System.currentTimeMillis();
 
 				//System.out.println(updates + " ups, " + frames + " fps");
-				frame.setTitle(title + " " + updates + " ups, " + frames + " fps, ");// + level.getDebug());
+				frame.setTitle(title + " " + updates + " ups, " + frames + " fps, " + level.getDebug());
 
 				frames = 0;
 				updates = 0;
@@ -197,6 +197,16 @@ public class Game extends Canvas implements Runnable
 	public static int getWindowWidth()
 	{
 		return width * scale;
+	}
+
+	public static int getScreenWidth()
+	{
+		return width;
+	}
+
+	public static int getScreenHeight()
+	{
+		return height;
 	}
 
 	public static void main(String[] args)
