@@ -49,9 +49,11 @@ public class Game extends Canvas implements Runnable
 	private Gui gui;
 
 
-	Color color = new Color(0xffffff);
+	private boolean showHitboxes = true;
 
-	Player player;
+	private Color color = new Color(0xffffff);
+
+	private Player player;
 
 	public Game()
 	{
@@ -174,7 +176,7 @@ public class Game extends Canvas implements Runnable
 
 		gui.render(screen);
 
-		player.getHitbox().renderCorners(screen);
+		if(showHitboxes) player.getHitbox().renderCorners(screen);
 
 		// not after here
 
@@ -184,7 +186,17 @@ public class Game extends Canvas implements Runnable
 
 		Graphics g = bs.getDrawGraphics();
 
+		renderHitboxes(g, xScroll, yScroll);
+
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+
+		g.dispose();
+		bs.show();
+	}
+
+	public void renderHitboxes(Graphics g, int xScroll, int yScroll)
+	{
+		if(!showHitboxes) return;
 
 
 		//drawing hitboxes
@@ -232,9 +244,6 @@ public class Game extends Canvas implements Runnable
 			g.drawRect(hx, hy, hw, hh);
 		}
 
-
-		g.dispose();
-		bs.show();
 	}
 
 	public void update()
@@ -245,6 +254,8 @@ public class Game extends Canvas implements Runnable
 
 		gui.update();
 	}
+
+
 
 	public static int getWindowHeight()
 	{
@@ -271,7 +282,5 @@ public class Game extends Canvas implements Runnable
 		game = new Game();
 		game.start();
 	}
-
-
 
 }
