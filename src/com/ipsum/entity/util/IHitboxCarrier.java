@@ -1,4 +1,4 @@
-package com.ipsum.entity.mob.util;
+package com.ipsum.entity.util;
 
 public interface IHitboxCarrier
 {

@@ -30,7 +30,7 @@ public class Gui
 		if(amount == 100 || amount == 0)
 			add *= -1;
 
-		healthBar.setValues(player.getMaxHealth(), player.getHealth());
+		healthBar.setValues((int) player.getMaxHealth(),(int) player.getHealth());
 		healthBar.update();
 
 	}

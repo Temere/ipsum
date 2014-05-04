@@ -4,7 +4,7 @@ import com.ipsum.entity.Entity;
 import com.ipsum.entity.mob.Dummy;
 import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.mob.player.Player;
-import com.ipsum.entity.mob.util.Hitbox;
+import com.ipsum.entity.util.Hitbox;
 import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.gui.Gui;
@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable
 
 	private Thread thread;
 
-	private boolean running = true;
+	private boolean running = false;
 
 	private Keyboard keyboard;
 	private Mouse mouse;
@@ -186,9 +186,9 @@ public class Game extends Canvas implements Runnable
 
 		Graphics g = bs.getDrawGraphics();
 
-		renderHitboxes(g, xScroll, yScroll);
-
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+
+		renderHitboxes(g, xScroll, yScroll);
 
 		g.dispose();
 		bs.show();

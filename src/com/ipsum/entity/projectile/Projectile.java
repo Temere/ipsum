@@ -1,10 +1,13 @@
 package com.ipsum.entity.projectile;
 
 import com.ipsum.entity.Entity;
-import com.ipsum.entity.mob.util.Hitbox;
-import com.ipsum.entity.mob.util.IHitboxCarrier;
+import com.ipsum.entity.mob.Mob;
+import com.ipsum.entity.util.Hitbox;
+import com.ipsum.entity.util.IHitboxCarrier;
+import com.ipsum.entity.spawner.ParticleSpawner;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.Sprite;
+import com.ipsum.graphics.res.Sprites;
 import com.ipsum.level.Level;
 
 public abstract class Projectile extends Entity implements IHitboxCarrier
@@ -61,6 +64,28 @@ public abstract class Projectile extends Entity implements IHitboxCarrier
 
 	public void update()
 	{
+		move();
+		distance = distanceTraveled();
+		if(distance > range) remove();
+		if(level.tileCollision((int)(x + nx),(int)(y + ny), size, 4, 4))
+		{
+			level.add(new ParticleSpawner((int)(x + size / 2), (int) (y + size / 2), 55, 20, level, Sprites.particle.blergh));
+			remove();
+		}
+
+		Mob m = level.projectileMobCollision(this);
+		if(m != null)
+		{
+			if(!didDamage)
+			{
+				m.damage(damage);
+				System.out.println("Hit for " + damage + " " + m.getHealth() + "/" + m.getMaxHealth());
+				didDamage = true;
+			}
+
+			level.add(new ParticleSpawner((int)(x + size / 2), (int) (y + size / 2), 55, 20, level, Sprites.particle.blood));
+			remove();
+		}
 		hitbox.update();
 	}
 

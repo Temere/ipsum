@@ -1,7 +1,6 @@
 package com.ipsum.graphics;
 
 import com.ipsum.entity.mob.Mob;
-import com.ipsum.entity.mob.util.Hitbox;
 
 public class Screen
 {

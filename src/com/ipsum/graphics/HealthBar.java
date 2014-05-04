@@ -53,8 +53,8 @@ public class HealthBar extends Bar
 			y =(int) mob.getY() + yOffset;
 		}
 
-		max = mob.getMaxHealth();
-		current = mob.getHealth();
+		max = (int) mob.getMaxHealth();
+		current = (int) mob.getHealth();
 
 		return (HealthBar) super.update();
 	}

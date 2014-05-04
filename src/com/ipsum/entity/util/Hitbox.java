@@ -1,4 +1,4 @@
-package com.ipsum.entity.mob.util;
+package com.ipsum.entity.util;
 
 import com.ipsum.entity.Entity;
 import com.ipsum.entity.mob.Mob;
@@ -194,8 +194,6 @@ public class Hitbox
 		return height + hOffset;
 	}
 
-
-
 	public void setPosition(double x, double y)
 	{
 		this.x = x;
@@ -242,12 +240,18 @@ public class Hitbox
 
 	public boolean collision(Hitbox other, boolean checking)
 	{
+		double x = getXWithOffset();
+		double y = getYWithOffset();
+		double w = getWidthWithOffset();
+		double h = getHeightWithOffset();
+
+
 		for(int c = 0; c < 4; c++)
 		{
-			double cx = (other.getX() + c % 2 * other.getWidth());
-			double cy = (other.getY() + c / 2 * other.getHeight());
+			double cx = (other.getXWithOffset() + c % 2 * other.getWidth());
+			double cy = (other.getYWithOffset() + c / 2 * other.getHeight());
 
-			if((cx > x && cx < x + width) && (cy > y && cy < y + height))
+			if((cx > x && cx < x + w) && (cy > y && cy < y + h))
 				return true;
 		}
 

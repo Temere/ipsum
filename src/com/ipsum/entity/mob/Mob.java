@@ -2,8 +2,8 @@ package com.ipsum.entity.mob;
 
 import com.ipsum.entity.Entity;
 import com.ipsum.entity.mob.ai.AI;
-import com.ipsum.entity.mob.util.Hitbox;
-import com.ipsum.entity.mob.util.IHitboxCarrier;
+import com.ipsum.entity.util.Hitbox;
+import com.ipsum.entity.util.IHitboxCarrier;
 import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.entity.projectile.TestProjectile;
 import com.ipsum.graphics.*;
@@ -28,8 +28,8 @@ public abstract class Mob extends Entity implements IHitboxCarrier
 	protected AnimatedSprite[] animatedSprites;
 	protected int animSpeed = 15;
 
-	protected int maxHealth = 50;
-	protected int health = maxHealth;
+	protected double maxHealth = 50;
+	protected double health = maxHealth;
 	protected HealthBar healthBar;
 	protected boolean showHealthBar = false;
 
@@ -194,7 +194,7 @@ public abstract class Mob extends Entity implements IHitboxCarrier
 		level.add(p);
 	}
 
-	public void damage(int amount)
+	public void damage(double amount)
 	{
 		health -= amount;
 
@@ -204,12 +204,12 @@ public abstract class Mob extends Entity implements IHitboxCarrier
 			health = maxHealth;
 	}
 
-	public int getHealth()
+	public double getHealth()
 	{
 		return health;
 	}
 
-	public int getMaxHealth()
+	public double getMaxHealth()
 	{
 		return maxHealth;
 	}
