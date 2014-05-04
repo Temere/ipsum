@@ -1,13 +1,14 @@
 package com.ipsum.entity.mob;
 
-
 import com.ipsum.entity.Entity;
 import com.ipsum.entity.mob.ai.AI;
+import com.ipsum.entity.mob.util.Hitbox;
+import com.ipsum.entity.mob.util.IHitboxCarrier;
 import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.entity.projectile.TestProjectile;
 import com.ipsum.graphics.*;
 
-public abstract class Mob extends Entity
+public abstract class Mob extends Entity implements IHitboxCarrier
 {
 
 	protected enum Direction
@@ -15,9 +16,11 @@ public abstract class Mob extends Entity
 		UP, DOWN, LEFT, RIGHT
 	}
 
+	protected double speed = 1.0;
+
 	protected Direction dir;
 	protected boolean moving = false;
-	protected int xa = 0, ya = 0;
+
 	private int width;
 	private int height;
 
@@ -30,6 +33,8 @@ public abstract class Mob extends Entity
 	protected HealthBar healthBar;
 	protected boolean showHealthBar = false;
 
+	protected Hitbox hitbox;
+
 	protected AI ai = null;
 
 
@@ -40,6 +45,8 @@ public abstract class Mob extends Entity
 		initAnimation(animSheet);
 		width = animSheet.spriteSize;
 		height = animSheet.spriteSize;
+
+		hitbox = new Hitbox(this);
 
 		dir = Direction.DOWN;
 
@@ -70,7 +77,7 @@ public abstract class Mob extends Entity
 		}
 	}
 
-	public void move(int xa, int ya)
+	public void move(double xa, double ya)
 	{
 		if(xa != 0 || ya != 0)
 		{
@@ -90,17 +97,61 @@ public abstract class Mob extends Entity
 			return;
 		}
 
+
+		xa *= speed;
+		ya *= speed;
+
+//		System.err.println("__ " + xa + " , " + ya);
+
 		if(xa > 0) dir = Direction.RIGHT;
 		if(xa < 0) dir = Direction.LEFT;
 		if(ya > 0) dir = Direction.DOWN;
 		if(ya < 0) dir = Direction.UP;
 
-		if(!collision(xa, ya))
+		while (xa != 0)
 		{
-			x += xa;
-			y += ya;
+			if(Math.abs(xa) > 1 )
+			{
+				if(!collision(abs(xa), ya))
+				{
+					this.x += abs(xa);
+				}
+				xa -= abs(xa);
+			}
+			else
+			{
+				if(!collision(abs(xa), ya))
+				{
+					this.x += xa;
+				}
+				xa = 0;
+			}
+		}
+		while (ya != 0)
+		{
+			if(Math.abs(ya) > 1 )
+			{
+				if(!collision(xa, abs(ya)))
+				{
+					this.y += abs(ya);
+				}
+				ya -= abs(ya);
+			}
+			else
+			{
+				if(!collision(xa, abs(ya)))
+				{
+					this.y += ya;
+				}
+				ya = 0;
+			}
 		}
 	}
+	private int abs(double value)
+	{
+		return (value > 0) ? 1 : -1;
+	}
+
 
 	public void updateAnim()
 	{
@@ -122,7 +173,7 @@ public abstract class Mob extends Entity
 	@Override
 	public void render(Screen screen)
 	{
-		renderMob((int)x - (animatedSprites[0].getSprite().getWidth() / 2),(int) y - (animatedSprites[0].getSprite().getHeight() / 2), screen);
+		renderMob((int)x - (animatedSprites[0].getSprite().getWidth() / 2), (int) y - (animatedSprites[0].getSprite().getHeight() / 2), screen);
 	}
 
 	public Sprite getSprite()
@@ -163,18 +214,27 @@ public abstract class Mob extends Entity
 		return maxHealth;
 	}
 
-	private boolean collision(int xa, int ya)
+	private boolean collision(double xa, double ya)
 	{
-		boolean solid = false;
 
-		for (int c = 0; c < 4; c++)
-		{
-			int xt =(int) ((x + xa) + c % 2 * 12 - 7 ) / 16;
-			int yt =(int) ((y + ya) + c / 2 * 12 + 3 ) / 16;
-			if(level.getTile(xt, yt).solid()) solid = true;
-		}
+//		boolean solid = false;
+//
+//		for (int c = 0; c < 4; c++)
+//		{
+//			double xt = ((x + xa)  - c % 2 * width) / 16;
+//			double yt = ((y + ya)  - c / 2 * height) / 16;
+//			int ix = (int) Math.ceil(xt);
+//			int iy = (int) Math.ceil(yt);
+//
+//			if (c % 2 == 0) ix = (int) Math.floor(xt);
+//			if (c / 2 == 0) iy = (int) Math.floor(yt);
+//			if(level.getTile(ix, iy).solid()) solid = true;
+//		}
+//
+//		return solid;
 
-		return solid;
+		hitbox.update();
+		return hitbox.tileCollision(xa, ya, level);
 	}
 
 	protected void addAI(AI ai)
@@ -207,6 +267,10 @@ public abstract class Mob extends Entity
 		return moving;
 	}
 
+	public Hitbox getHitbox()
+	{
+		return hitbox;
+	}
 
 	public int getWidth() {
 		return width;

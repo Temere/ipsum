@@ -50,6 +50,8 @@ public class TestProjectile extends Projectile
 			level.add(new ParticleSpawner((int)(x + size / 2), (int) (y + size / 2), 55, 20, level, Sprites.particle.blood));
 			remove();
 		}
+
+		super.update();
 	}
 
 	@Override

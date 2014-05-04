@@ -1,7 +1,11 @@
 package com.ipsum;
 
+import com.ipsum.entity.Entity;
 import com.ipsum.entity.mob.Dummy;
+import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.mob.player.Player;
+import com.ipsum.entity.mob.util.Hitbox;
+import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.gui.Gui;
 import com.ipsum.input.Keyboard;
@@ -45,6 +49,8 @@ public class Game extends Canvas implements Runnable
 	private Gui gui;
 
 
+	Color color = new Color(0xffffff);
+
 	Player player;
 
 	public Game()
@@ -68,7 +74,9 @@ public class Game extends Canvas implements Runnable
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
 
-		level.add(new Dummy(12 * 16, 14 * 16));
+		level.add(new Dummy(12 * 16, 20 * 16));
+		level.add(new Dummy(14 * 16, 15 * 16));
+		level.add(new Dummy(16 * 16, 18 * 16));
 	}
 
 	private void initFrame()
@@ -166,6 +174,8 @@ public class Game extends Canvas implements Runnable
 
 		gui.render(screen);
 
+		player.getHitbox().renderCorners(screen);
+
 		// not after here
 
 		for(int i = 0; i< pixels.length; i++)
@@ -175,6 +185,53 @@ public class Game extends Canvas implements Runnable
 		Graphics g = bs.getDrawGraphics();
 
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+
+
+		//drawing hitboxes
+
+		for(Entity e : level.getEntities())
+		{
+			if(e instanceof Mob)
+			{
+				Mob mob = (Mob) e;
+				Hitbox hitbox = mob.getHitbox();
+
+				int hx = (int) (hitbox.getXWithOffset() - xScroll) * scale;
+				int hy = (int) (hitbox.getYWithOffset() - yScroll) * scale;
+				int hw = (int) hitbox.getWidthWithOffset() * scale;
+				int hh = (int) hitbox.getHeightWithOffset() * scale;
+
+				g.setColor(color);
+				g.drawRect(hx, hy, hw, hh);
+			}
+		}
+
+		for(Projectile p : level.getProjectiles())
+		{
+			Hitbox hitbox = p.getHitbox();
+
+			int hx = (int) (hitbox.getXWithOffset() - xScroll) * scale;
+			int hy = (int) (hitbox.getYWithOffset() - yScroll) * scale;
+			int hw = (int) hitbox.getWidthWithOffset() * scale;
+			int hh = (int) hitbox.getHeightWithOffset() * scale;
+
+			g.setColor(color);
+			g.drawRect(hx, hy, hw, hh);
+		}
+
+		for(Player p : level.getPlayers())
+		{
+			Hitbox hitbox = p.getHitbox();
+
+			int hx = (int) (hitbox.getXWithOffset() - xScroll) * scale;
+			int hy = (int) (hitbox.getYWithOffset() - yScroll) * scale;
+			int hw = (int) hitbox.getWidthWithOffset() * scale;
+			int hh = (int) hitbox.getHeightWithOffset() * scale;
+
+			g.setColor(color);
+			g.drawRect(hx, hy, hw, hh);
+		}
+
 
 		g.dispose();
 		bs.show();

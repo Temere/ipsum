@@ -9,6 +9,13 @@ public class Sprites
 
 	public static class test
 	{
+		public static class small
+		{
+			public static Sprite red = new Sprite(1, 0xff0000);
+			public static Sprite green = new Sprite(1, 0xff00);
+			public static Sprite yellow = new Sprite(1, 0xffff00);
+		}
+
 		public static Sprite red = new Sprite(16, 0xff0000);
 		public static Sprite green = new Sprite(16, 0xff00);
 		public static Sprite brown = new Sprite(16, 0x7F3300);

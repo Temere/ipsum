@@ -24,6 +24,9 @@ public class Player extends Mob
 		super(x, y, SpriteSheets.player);
 
 		fireRate = TestProjectile.FIRERATE;
+
+		hitbox.setOffset(-16, -16);
+		speed = 2.5;
 	}
 
 	@Override
@@ -81,13 +84,4 @@ public class Player extends Mob
 
 	}
 
-//	@Override
-//	public void render(Screen screen)
-//	{
-//		int xx = x - 16;
-//		int yy = y - 16;
-//
-//		renderMob(xx, yy, screen);
-//
-//	}
 }

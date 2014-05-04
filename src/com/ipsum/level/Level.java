@@ -50,6 +50,11 @@ public abstract class Level
 
 	}
 
+	public List<Entity> getEntities()
+	{
+		return entities;
+	}
+
 	public List<Player> getPlayers()
 	{
 		return players;
@@ -63,11 +68,6 @@ public abstract class Level
 	public Player getClientPlayer()
 	{
 		return players.get(0);
-	}
-
-	protected void time()
-	{
-
 	}
 
 	public List<Projectile> getProjectiles()

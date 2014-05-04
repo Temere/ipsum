@@ -1,6 +1,7 @@
 package com.ipsum.graphics;
 
 import com.ipsum.entity.mob.Mob;
+import com.ipsum.entity.mob.util.Hitbox;
 
 public class Screen
 {
@@ -160,7 +161,31 @@ public class Screen
 			}
 
 		}
-
-
 	}
+
+//	public void renderHitbox(Hitbox hitbox)
+//	{
+//		int color = 0x00ffaa;
+//
+//		int xp = (int) hitbox.getX();
+//		int yp = (int) hitbox.getY();
+//
+//		xp -= xOffset;
+//		yp -= yOffset;
+//
+//		for (int y = 0; y < bar.getHeight(); y++)
+//		{
+//			int ya = y + yp;
+//			for (int x = 0; x < bar.getWidth(); x++)
+//			{
+//				int xa = x + xp;
+//				if(xa < -bar.getWidth()  || xa >= width || ya < 0 || ya >= height) break;
+//				if(xa < 0) xa = 0;
+//				int col = bar.pixels[x + y * bar.getWidth()];
+//
+//				pixels[xa + ya * width] = col;
+//			}
+//
+//		}
+//	}
 }
