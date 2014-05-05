@@ -12,7 +12,7 @@ public class TestProjectile extends Projectile
 
 		range = 200;
 		speed = 4;
-		damage = .5;
+		damage = 4.5;
 		rateOfFire = 10;
 
 		sprite = Sprites.projectile.test.wizard;

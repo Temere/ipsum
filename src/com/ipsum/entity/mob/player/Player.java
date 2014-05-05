@@ -25,7 +25,7 @@ public class Player extends Mob
 
 		fireRate = TestProjectile.FIRERATE;
 
-		hitbox.setOffset(-16, -16);
+		hitbox.setOffset(-9, -8, -13, -9);
 		speed = 2.5;
 	}
 

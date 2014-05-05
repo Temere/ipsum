@@ -25,7 +25,7 @@ public class Game extends Canvas implements Runnable
 {
 
 	private static int scale = 3;
-	private static int width = 900 / scale;
+	private static int width = 1920 / scale;
 	private static int height = width / 16 * 9;
 
 	public static Game game;
@@ -49,7 +49,7 @@ public class Game extends Canvas implements Runnable
 	private Gui gui;
 
 
-	private boolean showHitboxes = true;
+	private boolean showHitboxes = false;
 
 	private Color color = new Color(0xffffff);
 

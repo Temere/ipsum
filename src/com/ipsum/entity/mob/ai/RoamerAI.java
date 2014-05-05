@@ -9,7 +9,6 @@ public class RoamerAI extends AI
 	private int speed;
 	private int diff = 0;
 
-	private int interval = 2;
 	private int stopRate = 5;
 
 	private int next = 60;
@@ -34,11 +33,6 @@ public class RoamerAI extends AI
 		return this;
 	}
 
-	public RoamerAI moveInterval(int interval)
-	{
-		this.interval = interval;
-		return this;
-	}
 
 	@Override
 	public void update(Mob mob)
@@ -59,10 +53,8 @@ public class RoamerAI extends AI
 
 
 		}
-		if(interval == 0 || timer % interval == 0)
-		{
+
 			mob.move(xa, ya);
 
-		}
 	}
 }

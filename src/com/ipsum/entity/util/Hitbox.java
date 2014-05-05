@@ -202,6 +202,7 @@ public class Hitbox
 
 	public boolean tileCollision(double xa, double ya, Level level)
 	{
+		// needs to be more precise
 		boolean solid = false;
 
 		int w = (int) (width + wOffset);

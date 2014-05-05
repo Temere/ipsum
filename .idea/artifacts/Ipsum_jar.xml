@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Ipsum:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Ipsum_jar</output-path>
+    <root id="archive" name="Ipsum.jar">
+      <element id="module-output" name="Ipsum" />
+    </root>
+  </artifact>
+</component>

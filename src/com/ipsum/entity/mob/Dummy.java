@@ -18,12 +18,14 @@ public class Dummy extends Mob
 		maxHealth = 50;
 		health = maxHealth;
 
+		speed = 1.4;
+
 		hitbox.setOffset(-16, -16);
 	}
 
 	@Override
 	public void init(Level level) {
 		super.init(level);
-//		((ChaserAI)ai).setTarget(level.getClientPlayer());
+		((ChaserAI)ai).setTarget(level.getClientPlayer());
 	}
 }
