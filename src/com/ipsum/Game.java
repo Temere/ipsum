@@ -24,7 +24,7 @@ import java.awt.image.DataBufferInt;
 public class Game extends Canvas implements Runnable
 {
 
-	private static int scale = 3;
+	private static int scale = 1;
 	private static int width = 1920 / scale;
 	private static int height = width / 16 * 9;
 
