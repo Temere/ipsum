@@ -17,6 +17,7 @@ import com.ipsum.level.FileLevel;
 import com.ipsum.level.Level;
 import com.ipsum.level.TestLevelData;
 
+import com.ipsum.util.Debug;
 import com.ipsum.util.TileCoordinate;
 
 import javax.swing.*;
@@ -180,7 +181,8 @@ public class Game extends Canvas implements Runnable
 
 		gui.render(screen);
 
-		if(showHitboxes) player.getHitbox().renderCorners(screen);
+		if(Debug.hitboxes == Debug.Hitboxes.SHOW_ALL || Debug.hitboxes == Debug.Hitboxes.SHOW_CORNERS)
+			player.getHitbox().renderCorners(screen);
 
 		// not after here
 
@@ -200,7 +202,7 @@ public class Game extends Canvas implements Runnable
 
 	public void renderHitboxes(Graphics g, int xScroll, int yScroll)
 	{
-		if(!showHitboxes) return;
+		if(Debug.hitboxes != Debug.Hitboxes.SHOW_ALL && Debug.hitboxes != Debug.Hitboxes.SHOW_OUTLINE) return;
 
 
 		//drawing hitboxes
@@ -285,6 +287,8 @@ public class Game extends Canvas implements Runnable
 	{
 		game = new Game();
 		game.start();
+
+		Debug.hitboxes = Debug.Hitboxes.SHOW_ALL;
 	}
 
 }
