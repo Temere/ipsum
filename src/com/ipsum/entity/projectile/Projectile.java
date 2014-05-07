@@ -3,14 +3,15 @@ package com.ipsum.entity.projectile;
 import com.ipsum.entity.Entity;
 import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.util.Hitbox;
-import com.ipsum.entity.util.IHitboxCarrier;
+import com.ipsum.interfaces.ICollidable;
+
 import com.ipsum.entity.spawner.ParticleSpawner;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.Sprite;
 import com.ipsum.graphics.res.Sprites;
 import com.ipsum.level.Level;
 
-public abstract class Projectile extends Entity implements IHitboxCarrier
+public abstract class Projectile extends Entity implements ICollidable
 {
 
 	protected final int xOrigin, yOrigin;
@@ -96,5 +97,24 @@ public abstract class Projectile extends Entity implements IHitboxCarrier
 
 	public Hitbox getHitbox() {
 		return hitbox;
+	}
+
+
+	@Override
+	public int getWidth()
+	{
+		return size;
+	}
+
+	@Override
+	public int getHeight()
+	{
+		return size;
+	}
+
+	@Override
+	public int[] getPixels()
+	{
+		return sprite.pixels;
 	}
 }

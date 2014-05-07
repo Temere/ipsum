@@ -5,6 +5,8 @@ import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.res.Sprites;
+import com.ipsum.interfaces.ICollidable;
+
 import com.ipsum.level.Level;
 
 public class Hitbox
@@ -13,7 +15,6 @@ public class Hitbox
 	{
 		MOB, PROJECTILE
 	}
-
 
 	protected double x;
 	protected double y;
@@ -43,11 +44,11 @@ public class Hitbox
 			cornorPos[i] = 0;
 	}
 
-	public Hitbox(IHitboxCarrier hitboxCarrier)
+	public Hitbox(ICollidable collidable)
 	{
-		if(hitboxCarrier instanceof Mob)
+		if(collidable instanceof Mob)
 		{
-			following = (Mob) hitboxCarrier;
+			following = (Mob) collidable;
 			followType = FollowType.MOB;
 
 			this.x = following.getX();
@@ -56,9 +57,9 @@ public class Hitbox
 			this.height = ((Mob)following).getHeight();
 
 		}
-		else if(hitboxCarrier instanceof Projectile)
+		else if(collidable instanceof Projectile)
 		{
-			following = (Projectile) hitboxCarrier;
+			following = (Projectile) collidable;
 			followType = FollowType.PROJECTILE;
 
 			this.x = following.getX();

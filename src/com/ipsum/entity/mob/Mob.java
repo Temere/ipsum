@@ -3,12 +3,13 @@ package com.ipsum.entity.mob;
 import com.ipsum.entity.Entity;
 import com.ipsum.entity.mob.ai.AI;
 import com.ipsum.entity.util.Hitbox;
-import com.ipsum.entity.util.IHitboxCarrier;
+
 import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.entity.projectile.TestProjectile;
 import com.ipsum.graphics.*;
+import com.ipsum.interfaces.ICollidable;
 
-public abstract class Mob extends Entity implements IHitboxCarrier
+public abstract class Mob extends Entity implements ICollidable
 {
 
 	protected enum Direction
@@ -21,8 +22,8 @@ public abstract class Mob extends Entity implements IHitboxCarrier
 	protected Direction dir;
 	protected boolean moving = false;
 
-	private int width;
-	private int height;
+	protected int width;
+	protected int height;
 
 	protected Sprite sprite;
 	protected AnimatedSprite[] animatedSprites;
@@ -202,6 +203,12 @@ public abstract class Mob extends Entity implements IHitboxCarrier
 			remove();
 		else if(health > maxHealth)
 			health = maxHealth;
+	}
+
+	@Override
+	public int[] getPixels()
+	{
+		return animatedSprites[dir.ordinal()].getSprite().pixels;
 	}
 
 	public double getHealth()

@@ -29,5 +29,4 @@ public class TestProjectile extends Projectile
 		x += nx;
 		y += ny;
 	}
-
 }

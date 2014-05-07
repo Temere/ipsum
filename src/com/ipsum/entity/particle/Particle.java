@@ -15,6 +15,9 @@ public class Particle extends Entity
 	protected double xx, yy, zz;
 	protected double xa, ya, za;
 
+	protected int width;
+	protected int height;
+
 
 	public Particle(int x, int y, int life)
 	{
@@ -73,6 +76,21 @@ public class Particle extends Entity
 		this.xx += xa;
 		this.yy += ya;
 		this.zz += za;
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+	@Override
+	public int[] getPixels() {
+		return sprite.pixels;
 	}
 
 	@Override
