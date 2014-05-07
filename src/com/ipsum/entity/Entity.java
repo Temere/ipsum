@@ -1,13 +1,12 @@
 package com.ipsum.entity;
 
-import com.ipsum.graphics.Screen;
-import com.ipsum.interfaces.IRenderable;
+import com.ipsum.interfaces.IScreenable;
 import com.ipsum.interfaces.IUpdatable;
 import com.ipsum.level.Level;
 
 import java.util.Random;
 
-public abstract class Entity implements IUpdatable, IRenderable
+public abstract class Entity implements IUpdatable, IScreenable
 {
 	protected double x, y;
 	protected boolean removed = false;

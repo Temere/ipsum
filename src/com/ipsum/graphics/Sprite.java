@@ -1,6 +1,9 @@
 package com.ipsum.graphics;
 
-public class Sprite
+import com.ipsum.graphics.filter.Filter;
+import com.ipsum.interfaces.IRenderable;
+
+public class Sprite implements IRenderable
 {
 	public final int width, height;
 	private int x, y;
@@ -64,6 +67,12 @@ public class Sprite
 		return height;
 	}
 
+	@Override
+	public int[] getPixels()
+	{
+		return pixels;
+	}
+
 	private void loadColor(int color)
 	{
 		for(int i = 0; i < pixels.length; i++)
@@ -81,68 +90,9 @@ public class Sprite
 		}
 	}
 
-	public Sprite replaceColor(int search, int replace)
+	public Sprite applyFilter(Filter filter)
 	{
-		for(int i = 0; i < pixels.length; i++)
-			if(pixels[i] == search) pixels[i] = replace;
-
-		return this;
-	}
-
-	public Sprite swapColor(int col1, int col2)
-	{
-		for(int i = 0; i < pixels.length; i++)
-		{
-			if(pixels[i] == col1) pixels[i] = col2;
-			else if(pixels[i] == col2) pixels[i] = col1;
-		}
-
-		return this;
-	}
-
-	public Sprite negative()
-	{
-
-		for(int i = 0; i < pixels.length; i++)
-		{
-			int col = pixels[i];
-
-			int r = (col >> 16) & 0xff;
-			int g = (col >>  8) & 0xff;
-			int b = col & 0xff;
-
-			r = (r > 128) ? r - 128 : r + 128;
-			g = (g > 128) ? g - 128 : g + 128;
-			b = (b > 128) ? b - 128 : b + 128;
-
-			col = (r << 16) + (g << 8) + b;
-			pixels[i] = col;
-		}
-
-		return this;
-	}
-
-	public Sprite negative(int transparency)
-	{
-
-		for(int i = 0; i < pixels.length; i++)
-		{
-			int col = pixels[i];
-
-			if(col == transparency) continue;
-
-			int r = (col >> 16) & 0xff;
-			int g = (col >>  8) & 0xff;
-			int b = col & 0xff;
-
-			r = (r > 128) ? r - 128 : r + 128;
-			g = (g > 128) ? g - 128 : g + 128;
-			b = (b > 128) ? b - 128 : b + 128;
-
-			col = (r << 16) + (g << 8) + b;
-			pixels[i] = col;
-		}
-
+		filter.apply(this);
 		return this;
 	}
 

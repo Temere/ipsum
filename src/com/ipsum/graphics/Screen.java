@@ -1,8 +1,10 @@
 package com.ipsum.graphics;
 
 import com.ipsum.entity.mob.Mob;
+import com.ipsum.graphics.filter.Filter;
+import com.ipsum.interfaces.IRenderable;
 
-public class Screen
+public class Screen implements IRenderable
 {
 	public static final int TILE_SIZE = 16;
 
@@ -160,6 +162,29 @@ public class Screen
 			}
 
 		}
+	}
+
+	@Override
+	public int getWidth()
+	{
+		return width;
+	}
+
+	@Override
+	public int getHeight()
+	{
+		return height;
+	}
+
+	@Override
+	public int[] getPixels()
+	{
+		return pixels;
+	}
+
+	public void applyFilter(Filter filter)
+	{
+		filter.apply(this);
 	}
 
 //	public void renderHitbox(Hitbox hitbox)

@@ -6,13 +6,17 @@ import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.mob.player.Player;
 import com.ipsum.entity.util.Hitbox;
 import com.ipsum.entity.projectile.Projectile;
+
 import com.ipsum.graphics.Screen;
 import com.ipsum.graphics.gui.Gui;
+
 import com.ipsum.input.Keyboard;
 import com.ipsum.input.Mouse;
+
 import com.ipsum.level.FileLevel;
 import com.ipsum.level.Level;
 import com.ipsum.level.TestLevelData;
+
 import com.ipsum.util.TileCoordinate;
 
 import javax.swing.*;

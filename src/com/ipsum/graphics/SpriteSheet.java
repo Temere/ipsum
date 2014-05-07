@@ -1,10 +1,13 @@
 package com.ipsum.graphics;
 
+import com.ipsum.graphics.filter.Filter;
+import com.ipsum.interfaces.IRenderable;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class SpriteSheet
+public class SpriteSheet implements IRenderable
 {
 
 	public String path;
@@ -121,69 +124,29 @@ public class SpriteSheet
 		return this;
 	}
 
-	public SpriteSheet replaceColor(int search, int replace)
-	{
-		for(int i = 0; i < pixels.length; i++)
-			if(pixels[i] == search) pixels[i] = replace;
 
-		return this;
+
+	@Override
+	public int getWidth()
+	{
+		return WIDTH;
 	}
 
-	public SpriteSheet swapColor(int col1, int col2)
+	@Override
+	public int getHeight()
 	{
-		for(int i = 0; i < pixels.length; i++)
-		{
-			if(pixels[i] == col1) pixels[i] = col2;
-			else if(pixels[i] == col2) pixels[i] = col1;
-		}
-
-		return this;
+		return HEIGHT;
 	}
 
-	public SpriteSheet negative()
+	@Override
+	public int[] getPixels()
 	{
-
-		for(int i = 0; i < pixels.length; i++)
-		{
-			int col = pixels[i];
-
-			int r = (col >> 16) & 0xff;
-			int g = (col >>  8) & 0xff;
-			int b = col & 0xff;
-
-			r = (r > 128) ? r - 128 : r + 128;
-			g = (g > 128) ? g - 128 : g + 128;
-			b = (b > 128) ? b - 128 : b + 128;
-
-			col = (r << 16) + (g << 8) + b;
-			pixels[i] = col;
-		}
-
-		return this;
+		return pixels;
 	}
 
-	public SpriteSheet negative(int transparency)
+	public SpriteSheet applyFilter(Filter filter)
 	{
-
-		for(int i = 0; i < pixels.length; i++)
-		{
-			int col = pixels[i];
-
-			if(col == transparency) continue;
-
-			int r = (col >> 16) & 0xff;
-			int g = (col >>  8) & 0xff;
-			int b = col & 0xff;
-
-			r = (r > 128) ? r - 128 : r + 128;
-			g = (g > 128) ? g - 128 : g + 128;
-			b = (b > 128) ? b - 128 : b + 128;
-
-			col = (r << 16) + (g << 8) + b;
-			pixels[i] = col;
-		}
-
+		filter.apply(this);
 		return this;
 	}
-
 }
