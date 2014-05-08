@@ -12,6 +12,9 @@ import com.ipsum.interfaces.ICollidable;
 public abstract class Mob extends Entity implements ICollidable
 {
 
+	protected boolean mobCollision = true;
+	protected boolean tileCollision = true;
+
 	protected enum Direction
 	{
 		UP, DOWN, LEFT, RIGHT
@@ -224,24 +227,25 @@ public abstract class Mob extends Entity implements ICollidable
 	private boolean collision(double xa, double ya)
 	{
 
-//		boolean solid = false;
-//
-//		for (int c = 0; c < 4; c++)
-//		{
-//			double xt = ((x + xa)  - c % 2 * width) / 16;
-//			double yt = ((y + ya)  - c / 2 * height) / 16;
-//			int ix = (int) Math.ceil(xt);
-//			int iy = (int) Math.ceil(yt);
-//
-//			if (c % 2 == 0) ix = (int) Math.floor(xt);
-//			if (c / 2 == 0) iy = (int) Math.floor(yt);
-//			if(level.getTile(ix, iy).solid()) solid = true;
-//		}
-//
-//		return solid;
-
 		hitbox.update();
-		return hitbox.tileCollision(xa, ya, level);
+		if(tileCollision && hitbox.tileCollision(xa, ya, level))
+			return true;
+
+
+		if(mobCollision)
+		{
+			for(int i = 0; i < level.getEntities().size(); i++)
+			{
+				Entity e = level.getEntities().get(i);
+				if(e instanceof Mob)
+				{
+					if(hitbox.collision(((Mob) e).getHitbox(), xa, ya)) return true;
+				}
+			}
+
+		}
+
+		return false;
 	}
 
 	protected void addAI(AI ai)

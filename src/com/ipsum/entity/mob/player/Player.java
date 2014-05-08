@@ -27,6 +27,7 @@ public class Player extends Mob
 
 		hitbox.setOffset(-9, -8, -13, -9);
 		speed = 2.5;
+		mobCollision = false;
 	}
 
 	@Override

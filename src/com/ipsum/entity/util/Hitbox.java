@@ -11,6 +11,8 @@ import com.ipsum.level.Level;
 
 public class Hitbox
 {
+
+
 	protected enum FollowType
 	{
 		MOB, PROJECTILE
@@ -30,7 +32,6 @@ public class Hitbox
 
 	protected Entity following;
 	protected FollowType followType;
-
 
 	public Hitbox(double x, double y, double width, double height)
 	{
@@ -336,15 +337,25 @@ public class Hitbox
 
 	public boolean collision(Hitbox other)
 	{
-		return collision(other, true);
+		return collision(other, true, 0, 0);
 	}
 
 	public boolean collision(Hitbox other, boolean checking)
 	{
-		double x = getXWithOffset();
-		double y = getYWithOffset();
-		double w = getWidthWithOffset();
-		double h = getHeightWithOffset();
+		return collision(other, checking, 0, 0);
+	}
+
+	public boolean collision(Hitbox other, double xa, double ya)
+	{
+		return collision(other, true, xa, ya);
+	}
+
+	public boolean collision(Hitbox other, boolean checking, double xa, double ya)
+	{
+		double x = getXWithOffset() + xa;
+		double y = getYWithOffset() + ya;
+		double w = getWidthWithOffset() + xa;
+		double h = getHeightWithOffset() + ya;
 
 
 		for(int c = 0; c < 4; c++)

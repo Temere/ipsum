@@ -83,8 +83,8 @@ public class Game extends Canvas implements Runnable
 		addMouseMotionListener(mouse);
 
 		level.add(new Dummy(12 * 16, 20 * 16));
-//		level.add(new Dummy(14 * 16, 15 * 16));
-//		level.add(new Dummy(16 * 16, 18 * 16));
+		level.add(new Dummy(14 * 16, 15 * 16));
+		level.add(new Dummy(16 * 16, 18 * 16));
 	}
 
 	private void initFrame()
@@ -271,8 +271,6 @@ public class Game extends Canvas implements Runnable
 
 		gui.update();
 	}
-
-
 
 	public static int getWindowHeight()
 	{
