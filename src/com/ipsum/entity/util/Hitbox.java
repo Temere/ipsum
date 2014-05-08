@@ -53,8 +53,8 @@ public class Hitbox
 
 			this.x = following.getX();
 			this.y = following.getY();
-			this.width =  ((Mob)following).getWidth();
-			this.height = ((Mob)following).getHeight();
+			this.width =  following.getWidth();
+			this.height = following.getHeight();
 
 		}
 		else if(collidable instanceof Projectile)
@@ -71,8 +71,13 @@ public class Hitbox
 		{
 			throw new IllegalArgumentException("Wrong class!");
 		}
-		cornorPos = new int[12];
-		for(int i = 0; i < 12; i++)
+
+		int cornersX = ((int)width / Screen.TILE_SIZE) * 2;
+		int cornersY = ((int)height / Screen.TILE_SIZE) * 2;
+
+		int corners = cornersX + cornersY + 1;
+		cornorPos = new int[corners * 3];
+		for(int i = 0; i < cornorPos.length; i++)
 			cornorPos[i] = 0;
 	}
 
@@ -201,36 +206,130 @@ public class Hitbox
 		this.y = y;
 	}
 
+
+
 	public boolean tileCollision(double xa, double ya, Level level)
 	{
-		// needs to be more precise
 		boolean solid = false;
 
 		int w = (int) (width + wOffset);
 		int h = (int) (height + hOffset);
-		double x = this.x + xOffset;
-		double y = this.y + yOffset;
 
-		for (int c = 0; c < 4; c++)
+		int x = (int) (this.x + xOffset + xa);
+		int y = (int) (this.y + yOffset + ya);
+
+
+		int c = 0;
+
+		int xc = x;
+		int yc = 0;
+
+		int xt, yt;
+
+		for(; xc < x + w; xc += Screen.TILE_SIZE)
 		{
+			yc = y;
+			xt = xc / Screen.TILE_SIZE;
+			for(; yc < y + h; yc += Screen.TILE_SIZE)
+			{
+				c++;
+				int p = c * 3;
+				yt = yc / Screen.TILE_SIZE;
+
+				if(level.getTile(xt, yt).solid()) solid = true;
+				cornorPos[p] = xc;
+				cornorPos[p + 1] = yc;
+				cornorPos[p + 2] = (level.getTile(xt, yt).solid()) ? 1 : 0;
+			}
+			if(yc > y + h)
+				yc = y + h;
+			c++;
 			int p = c * 3;
+			yt = yc / Screen.TILE_SIZE;
 
-			double xt = ((x + xa)  + (c % 2) * w);
-			double yt = ((y + ya)  + (c / 2) * h);
-			int ix = (int) Math.ceil(((int)xt) / Screen.TILE_SIZE);
-			int iy = (int) Math.ceil(((int)yt) / Screen.TILE_SIZE);
-
-			if (c % 2 == 0) ix = (int) Math.floor(((int)xt) / Screen.TILE_SIZE);
-			if (c / 2 == 0) iy = (int) Math.floor(((int) yt) / Screen.TILE_SIZE);
-
-//			System.out.println("c " + c + " ,x " + x + " ,y " + y + " ,xa " + xa + " ,ya " + ya + " ,xt " + xt + " ,yt " + yt + " ,ix " + ix + " ,iy " + iy
-//					+ " ,width " + width + " ,height " + height + " " + (c % 2) + " " + (c / 2) + " " + level.getTile(ix, iy).solid());
-			if(level.getTile(ix, iy).solid()) solid = true;
-
-			cornorPos[p] = (int) xt;
-			cornorPos[p + 1] = (int) yt;
-			cornorPos[p + 2] =  (level.getTile(ix, iy).solid()) ? 1 : 0;
+			if(level.getTile(xt, yt).solid()) solid = true;
+			cornorPos[p] = xc;
+			cornorPos[p + 1] = yc;
+			cornorPos[p + 2] = (level.getTile(xt, yt).solid()) ? 1 : 0;
 		}
+
+		if(xc > x + w)
+			xc = x + w;
+		c++;
+		int p = c * 3;
+		yt = yc / Screen.TILE_SIZE;
+		xt = xc / Screen.TILE_SIZE;
+
+		if(level.getTile(xt, yt).solid()) solid = true;
+		cornorPos[p] = xc;
+		cornorPos[p + 1] = yc;
+		cornorPos[p + 2] = (level.getTile(xt, yt).solid()) ? 1 : 0;
+
+		c++;
+		p = c * 3;
+		yt = y / Screen.TILE_SIZE;
+		xt = xc / Screen.TILE_SIZE;
+
+		if(level.getTile(xt, yt).solid()) solid = true;
+		cornorPos[p] = xc;
+		cornorPos[p + 1] = y;
+		cornorPos[p + 2] = (level.getTile(xt, yt).solid()) ? 1 : 0;
+
+
+//		for (int c = 0; c < corners; c++)
+//		{
+//			int p = c * 3;
+//
+//			int cx =(int) ((x + xa)  + (c % (corners / 2)) * Screen.TILE_SIZE);
+//			int cy =(int) ((y + ya)  + (c / (corners / 2)) * Screen.TILE_SIZE);
+//			System.out.println(cx + "," + cy);
+//
+//			int tx = cx / Screen.TILE_SIZE;
+//			int ty = cy / Screen.TILE_SIZE;
+////
+////			double xt = ((x + xa)  + (c % 2) * w);
+////			double yt = ((y + ya)  + (c / 2) * h);
+////			int ix = (int) Math.ceil(((int)xt) / Screen.TILE_SIZE);
+////			int iy = (int) Math.ceil(((int)yt) / Screen.TILE_SIZE);
+////
+////			if (c % 2 == 0) ix = (int) Math.floor(((int)xt) / Screen.TILE_SIZE);
+////			if (c / 2 == 0) iy = (int) Math.floor(((int) yt) / Screen.TILE_SIZE);
+////
+//////			System.out.println("c " + c + " ,x " + x + " ,y " + y + " ,xa " + xa + " ,ya " + ya + " ,xt " + xt + " ,yt " + yt + " ,ix " + ix + " ,iy " + iy
+//////					+ " ,width " + width + " ,height " + height + " " + (c % 2) + " " + (c / 2) + " " + level.getTile(ix, iy).solid());
+////			if(level.getTile(ix, iy).solid()) solid = true;
+//
+//			if(level.getTile(tx, ty).solid()) solid = true;
+//
+//			cornorPos[p] = cx;
+//			cornorPos[p + 1] = cy;
+//			cornorPos[p + 2] =  (level.getTile(tx, ty).solid()) ? 1 : 0;
+
+//		int w = (int) (width + wOffset);
+//		int h = (int) (height + hOffset);
+//		double x = this.x + xOffset;
+//		double y = this.y + yOffset;
+//
+//		for (int c = 0; c < 4; c++)
+//		{
+//			int p = c * 3;
+//
+//			double xt = ((x + xa)  + (c % 2) * w);
+//			double yt = ((y + ya)  + (c / 2) * h);
+//			int ix = (int) Math.ceil(((int)xt) / Screen.TILE_SIZE);
+//			int iy = (int) Math.ceil(((int)yt) / Screen.TILE_SIZE);
+//
+//			if (c % 2 == 0) ix = (int) Math.floor(((int)xt) / Screen.TILE_SIZE);
+//			if (c / 2 == 0) iy = (int) Math.floor(((int) yt) / Screen.TILE_SIZE);
+//
+////			System.out.println("c " + c + " ,x " + x + " ,y " + y + " ,xa " + xa + " ,ya " + ya + " ,xt " + xt + " ,yt " + yt + " ,ix " + ix + " ,iy " + iy
+////					+ " ,width " + width + " ,height " + height + " " + (c % 2) + " " + (c / 2) + " " + level.getTile(ix, iy).solid());
+//			if(level.getTile(ix, iy).solid()) solid = true;
+//
+//			cornorPos[p] = (int) xt;
+//			cornorPos[p + 1] = (int) yt;
+//			cornorPos[p + 2] =  (level.getTile(ix, iy).solid()) ? 1 : 0;
+//		}
 
 		return solid;
 	}
@@ -262,7 +361,7 @@ public class Hitbox
 
 	public void renderCorners(Screen screen)
 	{
-		for(int c = 0; c < 4; c++)
+		for(int c = 0; c < cornorPos.length / 3; c++)
 		{
 			int p = c * 3;
 			screen.renderSprite(cornorPos[p], cornorPos[p + 1], (cornorPos[p + 2] == 0) ? Sprites.test.small.green : Sprites.test.small.red, true);

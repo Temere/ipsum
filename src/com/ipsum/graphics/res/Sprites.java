@@ -11,8 +11,8 @@ public class Sprites
 	{
 		public static class small
 		{
-			public static Sprite red = new Sprite(1, 0xff0000);
-			public static Sprite green = new Sprite(1, 0xff00);
+			public static Sprite red = new Sprite(3, 0xff0000);
+			public static Sprite green = new Sprite(3, 0xff00);
 			public static Sprite yellow = new Sprite(1, 0xffff00);
 		}
 

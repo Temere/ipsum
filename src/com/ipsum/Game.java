@@ -13,6 +13,7 @@ import com.ipsum.graphics.gui.Gui;
 import com.ipsum.input.Keyboard;
 import com.ipsum.input.Mouse;
 
+import com.ipsum.interfaces.ICollidable;
 import com.ipsum.level.FileLevel;
 import com.ipsum.level.Level;
 import com.ipsum.level.TestLevelData;
@@ -29,8 +30,8 @@ import java.awt.image.DataBufferInt;
 public class Game extends Canvas implements Runnable
 {
 
-	private static int scale = 1;
-	private static int width = 1920 / scale;
+	private static int scale = 2;
+	private static int width = 900 / scale;
 	private static int height = width / 16 * 9;
 
 	public static Game game;
@@ -56,7 +57,7 @@ public class Game extends Canvas implements Runnable
 
 	private boolean showHitboxes = false;
 
-	private Color color = new Color(0xffffff);
+	private Color hitboxColour = new Color(0xffffff);
 
 	private Player player;
 
@@ -82,8 +83,8 @@ public class Game extends Canvas implements Runnable
 		addMouseMotionListener(mouse);
 
 		level.add(new Dummy(12 * 16, 20 * 16));
-		level.add(new Dummy(14 * 16, 15 * 16));
-		level.add(new Dummy(16 * 16, 18 * 16));
+//		level.add(new Dummy(14 * 16, 15 * 16));
+//		level.add(new Dummy(16 * 16, 18 * 16));
 	}
 
 	private void initFrame()
@@ -182,7 +183,17 @@ public class Game extends Canvas implements Runnable
 		gui.render(screen);
 
 		if(Debug.hitboxes == Debug.Hitboxes.SHOW_ALL || Debug.hitboxes == Debug.Hitboxes.SHOW_CORNERS)
+		{
+			for(Entity e : level.getEntities())
+			{
+				if(e instanceof ICollidable)
+				{
+					ICollidable c = (ICollidable) e;
+					c.getHitbox().renderCorners(screen);
+				}
+			}
 			player.getHitbox().renderCorners(screen);
+		}
 
 		// not after here
 
@@ -219,7 +230,7 @@ public class Game extends Canvas implements Runnable
 				int hw = (int) hitbox.getWidthWithOffset() * scale;
 				int hh = (int) hitbox.getHeightWithOffset() * scale;
 
-				g.setColor(color);
+				g.setColor(hitboxColour);
 				g.drawRect(hx, hy, hw, hh);
 			}
 		}
@@ -233,7 +244,7 @@ public class Game extends Canvas implements Runnable
 			int hw = (int) hitbox.getWidthWithOffset() * scale;
 			int hh = (int) hitbox.getHeightWithOffset() * scale;
 
-			g.setColor(color);
+			g.setColor(hitboxColour);
 			g.drawRect(hx, hy, hw, hh);
 		}
 
@@ -246,7 +257,7 @@ public class Game extends Canvas implements Runnable
 			int hw = (int) hitbox.getWidthWithOffset() * scale;
 			int hh = (int) hitbox.getHeightWithOffset() * scale;
 
-			g.setColor(color);
+			g.setColor(hitboxColour);
 			g.drawRect(hx, hy, hw, hh);
 		}
 
