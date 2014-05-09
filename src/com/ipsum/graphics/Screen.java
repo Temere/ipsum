@@ -59,6 +59,7 @@ public class Screen implements IRenderable
 			{
 				int xa = x + xp;
 				if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+				if(sprite.transparent && sprite.pixels[x + y * sprite.getWidth()] == sprite.transparentColor) continue;
 				pixels[xa + ya * width] = sprite.pixels[x + y * sprite.getWidth()];
 			}
 		}

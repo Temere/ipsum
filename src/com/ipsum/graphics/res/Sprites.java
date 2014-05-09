@@ -39,4 +39,12 @@ public class Sprites
 		}
 	}
 
+	public static class menu
+	{
+		public static class pause
+		{
+			public static Sprite paused = new Sprite(SpriteSheets.paused, 120, 48);
+		}
+	}
+
 }

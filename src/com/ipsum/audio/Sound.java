@@ -14,7 +14,7 @@ public class Sound
 		new JFXPanel();
 	}
 
-	private volatile MediaPlayer sound;
+	protected volatile MediaPlayer sound;
 	private String soundFile = "";
 
 	public Sound(String file)
@@ -24,28 +24,14 @@ public class Sound
 
 		if (!soundFile.exists())
 		{
-			System.err.println("Sound File \"" + file + "\" not found!");
+			System.err.println("Sound File \"" + file + "\" not found! " + soundFile.getAbsolutePath() + " " + soundFile.getPath());
 			return;
 		}
 
 		String[] strings = file.split("/");
 		this.soundFile = strings[strings.length - 1];
 
-		new Thread()
-		{
-			public void run()
-			{
-				try
-				{
-					sound = new MediaPlayer(new Media(soundFile.toURI().toString()));
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}.start();
-
+		sound = new MediaPlayer(new Media(soundFile.toURI().toString()));
 	}
 
 	public void play()
@@ -77,5 +63,10 @@ public class Sound
 	public void stop()
 	{
 		sound.stop();
+	}
+
+	public void setVolume(double volume)
+	{
+		sound.setVolume(volume);
 	}
 }

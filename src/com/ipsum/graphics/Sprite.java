@@ -10,11 +10,16 @@ public class Sprite implements IRenderable
 	public int[] pixels;
 	protected SpriteSheet sheet;
 
+	public int transparentColor = 0xffff00ff;
+	public boolean transparent = true;
+
 	public Sprite(SpriteSheet sheet, int width, int height)
 	{
 		this.width = width;
 		this.height = height;
 		this.sheet = sheet;
+		pixels = new int[width * height];
+		load();
 	}
 
 	public Sprite(int[] pixels, int width, int height)

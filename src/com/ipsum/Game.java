@@ -1,5 +1,6 @@
 package com.ipsum;
 
+import com.ipsum.audio.Sound;
 import com.ipsum.entity.Entity;
 import com.ipsum.entity.mob.Dummy;
 import com.ipsum.entity.mob.Mob;
@@ -18,11 +19,13 @@ import com.ipsum.level.FileLevel;
 import com.ipsum.level.Level;
 import com.ipsum.level.TestLevelData;
 
+import com.ipsum.menu.Menu;
 import com.ipsum.util.Debug;
 import com.ipsum.util.TileCoordinate;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -33,6 +36,8 @@ public class Game extends Canvas implements Runnable
 	private static int scale = 2;
 	private static int width = 900 / scale;
 	private static int height = width / 16 * 9;
+
+	private Sound background;
 
 	public static Game game;
 
@@ -53,7 +58,7 @@ public class Game extends Canvas implements Runnable
 	private Mouse mouse;
 
 	private Gui gui;
-
+	private Menu menu;
 
 	private boolean showHitboxes = false;
 
@@ -85,6 +90,11 @@ public class Game extends Canvas implements Runnable
 		level.add(new Dummy(12 * 16, 20 * 16));
 		level.add(new Dummy(14 * 16, 15 * 16));
 		level.add(new Dummy(16 * 16, 18 * 16));
+
+		menu = new Menu();
+
+		background = new Sound("res/Let Em Riot - Don t Stop Running.mp3");
+		//background.loop();
 	}
 
 	private void initFrame()
@@ -195,6 +205,9 @@ public class Game extends Canvas implements Runnable
 			player.getHitbox().renderCorners(screen);
 		}
 
+		if(menu.current != Menu.Current.NONE)
+			menu.render(screen);
+
 		// not after here
 
 		for(int i = 0; i< pixels.length; i++)
@@ -265,11 +278,18 @@ public class Game extends Canvas implements Runnable
 
 	public void update()
 	{
+
+
+		menu.update();
+
+		if(menu.current == Menu.Current.NONE)
+		{
+			level.update();
+
+			gui.update();
+		}
+
 		keyboard.update();
-
-		level.update();
-
-		gui.update();
 	}
 
 	public static int getWindowHeight()
