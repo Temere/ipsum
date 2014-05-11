@@ -50,6 +50,12 @@ public class AnimatedSprite extends Sprite
 		return sprite;
 	}
 
+	@Override
+	public int[] getPixels()
+	{
+		return sprite.getPixels();
+	}
+
 	public AnimatedSprite setFrameRate(int frameRate)
 	{
 		this.frameRate = frameRate;

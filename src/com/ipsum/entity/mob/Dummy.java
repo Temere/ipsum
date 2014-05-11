@@ -9,7 +9,7 @@ public class Dummy extends Mob
 
 	public Dummy(int x, int y)
 	{
-		super(x, y, SpriteSheets.dummy);
+		super(x, y, SpriteSheets.mobs.dummy);
 		showHealthBar = true;
 		healthBar.setOffset(-20, -20).setFollow(true).setXY(x, y);
 		//addAI(new RoamerAI(120, 2).setDiff(20).setStopRate(4));
@@ -21,6 +21,7 @@ public class Dummy extends Mob
 		speed = 1.4;
 
 		hitbox.setOffset(-16, -16);
+		lvl = 15;
 	}
 
 	@Override

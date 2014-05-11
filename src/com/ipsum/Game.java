@@ -33,7 +33,7 @@ import java.awt.image.DataBufferInt;
 public class Game extends Canvas implements Runnable
 {
 
-	private static int scale = 2;
+	private static int scale = 3;
 	private static int width = 900 / scale;
 	private static int height = width / 16 * 9;
 
@@ -93,8 +93,9 @@ public class Game extends Canvas implements Runnable
 
 		menu = new Menu();
 
-		background = new Sound("res/Let Em Riot - Don t Stop Running.mp3");
-		//background.loop();
+//		background = new Sound("res/Let Em Riot - Don t Stop Running.mp3");
+//		background.setVolume(0.05);
+//		background.loop();
 	}
 
 	private void initFrame()

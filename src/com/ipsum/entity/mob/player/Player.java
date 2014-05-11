@@ -1,6 +1,7 @@
 package com.ipsum.entity.mob.player;
 
 import com.ipsum.Game;
+import com.ipsum.entity.LevelUpAnim;
 import com.ipsum.entity.mob.Dummy;
 import com.ipsum.entity.mob.Mob;
 import com.ipsum.entity.projectile.TestProjectile;
@@ -13,6 +14,8 @@ public class Player extends Mob
 {
 	private int fireRate = 0;
 	private int timer = 0;
+
+	private int xp = 0;
 
 	public Player(TileCoordinate coordinate)
 	{
@@ -28,6 +31,8 @@ public class Player extends Mob
 		hitbox.setOffset(-9, -8, -13, -9);
 		speed = 2.5;
 		mobCollision = false;
+
+		lvl = 1;
 	}
 
 	@Override
@@ -85,4 +90,32 @@ public class Player extends Mob
 
 	}
 
+	public int getNextLevelXp()
+	{
+		return 30 + lvl * lvl * 2;
+	}
+
+	public void addXp(int amount)
+	{
+		System.out.println(amount);
+		xp += amount;
+		while (xp >= getNextLevelXp())
+		{
+			levelUp();
+		}
+	}
+
+	private void levelUp()
+	{
+		xp -= getNextLevelXp();
+		lvl++;
+		stats.updateStats();
+		System.out.println("Level up! " + lvl);
+		level.add(new LevelUpAnim((int)x - 10,(int) y - 10, width + 10, height + 10));
+	}
+
+	public int getXp()
+	{
+		return xp;
+	}
 }

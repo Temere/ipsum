@@ -7,7 +7,6 @@ import com.ipsum.graphics.filter.Filter;
 import com.ipsum.graphics.filter.FilterDarken;
 import com.ipsum.graphics.res.Sprites;
 import com.ipsum.input.Keyboard;
-import com.ipsum.interfaces.IRenderable;
 import com.ipsum.interfaces.IScreenable;
 import com.ipsum.interfaces.IUpdatable;
 

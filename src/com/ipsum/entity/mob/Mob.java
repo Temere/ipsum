@@ -6,12 +6,13 @@ import com.ipsum.entity.util.Hitbox;
 
 import com.ipsum.entity.projectile.Projectile;
 import com.ipsum.entity.projectile.TestProjectile;
+import com.ipsum.entity.util.Stats;
 import com.ipsum.graphics.*;
 import com.ipsum.interfaces.ICollidable;
+import com.ipsum.level.Level;
 
 public abstract class Mob extends Entity implements ICollidable
 {
-
 	protected boolean mobCollision = true;
 	protected boolean tileCollision = true;
 
@@ -41,6 +42,10 @@ public abstract class Mob extends Entity implements ICollidable
 
 	protected AI ai = null;
 
+	protected int lvl;
+	protected Stats stats;
+	protected int xpValue = 5;
+
 
 	protected Mob(int x, int y, SpriteSheet animSheet)
 	{
@@ -55,6 +60,16 @@ public abstract class Mob extends Entity implements ICollidable
 		dir = Direction.DOWN;
 
 		healthBar = new HealthBar(x, y, 25, 3, this);
+	}
+
+	@Override
+	public void init(Level level)
+	{
+		super.init(level);
+		stats = new Stats(lvl);
+		setMaxHealth(stats.getStat("stamina").getValue() * 5);
+		xpValue =(int) (lvl * 1.2 * 5);
+
 	}
 
 	protected void initAnimation(SpriteSheet sheet)
@@ -211,7 +226,7 @@ public abstract class Mob extends Entity implements ICollidable
 	@Override
 	public int[] getPixels()
 	{
-		return animatedSprites[dir.ordinal()].getSprite().pixels;
+		return animatedSprites[dir.ordinal()].getPixels();
 	}
 
 	public double getHealth()
@@ -289,5 +304,33 @@ public abstract class Mob extends Entity implements ICollidable
 
 	public int getHeight() {
 		return height;
+	}
+
+	public Stats getStats()
+	{
+		return stats;
+	}
+
+	public int getLvl()
+	{
+		return lvl;
+	}
+
+	public void setMaxHealth(double maxHealth)
+	{
+		this.maxHealth = maxHealth;
+
+		health = maxHealth;
+	}
+
+	@Override
+	public void remove()
+	{
+		super.remove();
+
+		//death anim
+
+		//add xp to nearby players
+		level.getClientPlayer().addXp(xpValue);
 	}
 }

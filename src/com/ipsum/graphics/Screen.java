@@ -188,29 +188,56 @@ public class Screen implements IRenderable
 		filter.apply(this);
 	}
 
-//	public void renderHitbox(Hitbox hitbox)
-//	{
-//		int color = 0x00ffaa;
-//
-//		int xp = (int) hitbox.getX();
-//		int yp = (int) hitbox.getY();
-//
-//		xp -= xOffset;
-//		yp -= yOffset;
-//
-//		for (int y = 0; y < bar.getHeight(); y++)
-//		{
-//			int ya = y + yp;
-//			for (int x = 0; x < bar.getWidth(); x++)
-//			{
-//				int xa = x + xp;
-//				if(xa < -bar.getWidth()  || xa >= width || ya < 0 || ya >= height) break;
-//				if(xa < 0) xa = 0;
-//				int col = bar.pixels[x + y * bar.getWidth()];
-//
-//				pixels[xa + ya * width] = col;
-//			}
-//
-//		}
-//	}
+	public void fillRect(int x, int y, int w, int h, int color,  boolean fixed)
+	{
+		if(fixed)
+		{
+			x -= xOffset;
+			y -= yOffset;
+		}
+
+		for(int yp = 0; yp <= h; yp++)
+		{
+			for (int xp = 0; xp <= w; xp++)
+			{
+				int xt = x + xp;
+				int yt = y + yp;
+				if(xt < 0 || xt >= width || yt < 0 || yt >= height) continue;
+
+				pixels[xt + yt * width] = color;
+
+			}
+		}
+
+	}
+
+	public void rect(int x, int y, int w, int h, int color, boolean fixed)
+	{
+		rect(x, y, w, h, color, fixed, 1);
+	}
+
+	public void rect(int x, int y, int w, int h, int color, boolean fixed, int lineSize)
+	{
+		if(fixed)
+		{
+			x -= xOffset;
+			y -= yOffset;
+		}
+
+		for(int yp = 0; yp <= h; yp++)
+		{
+			for (int xp = 0; xp <= w; xp++)
+			{
+				if(xp < lineSize || yp < lineSize || xp > w - lineSize || yp > h - lineSize)
+				{
+					int xt = x + xp;
+					int yt = y + yp;
+					if(xt < 0 || xt >= width || yt < 0 || yt >= height) continue;
+
+					pixels[xt + yt * width] = color;
+				}
+			}
+		}
+	}
+
 }
